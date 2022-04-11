@@ -1,0 +1,25 @@
+plugins {
+    id 'application'
+}
+apply plugin : "java"
+group 'org.example'
+version '1.0-SNAPSHOT'
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    implementation 'com.google.code.gson:gson:2.9.0'
+    implementation 'org.processing:core:3.3.7'
+}
+
+ext { javaMainClass = "com.lukullu.undersquare.Main" }
+
+application {
+    mainClassName = javaMainClass
+}
+
+test {
+    useJUnitPlatform()
+}
