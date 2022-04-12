@@ -26,8 +26,9 @@ public class MainMenu extends ProgramState implements ProcessingClass {
 
     public LevelMap mapToBeLoaded;
 
+    public Widget tempTitleScreen;
     public Widget loadButton;
-    public ScrollWidget fileList = new ScrollWidget(ZERO_VECTOR_2, ZERO_VECTOR_2);
+    public ScrollWidget fileList = new ScrollWidget(ZERO_VECTOR_2, ZERO_VECTOR_2,ROUNDEDCORNERS,ROUNDEDCORNERS,ROUNDEDCORNERS,ROUNDEDCORNERS,"Maps:");
 
     @Override
     public void init(){
@@ -40,25 +41,37 @@ public class MainMenu extends ProgramState implements ProcessingClass {
 
         loadButton = new LoadMapButton(
                 new Vector2(
-                        scaleToScreenX(40) + scaleToScreenX(200),
-                        scaleToScreenY(1000)
-                ),
-                new Vector2(
-                        scaleToScreenX(200),
-                        scaleToScreenY(40)
-                )
-        );
-
-        fileList = new ScrollWidget(
-                new Vector2(
-                        scaleToScreenX(40),
-                        scaleToScreenY(20)
+                        scaleToScreenX(30),
+                        scaleToScreenY(1020)
                 ),
                 new Vector2(
                         scaleToScreenX(400),
-                        scaleToScreenY(900)
-                )
-        );
+                        scaleToScreenY(40)),
+                ROUNDEDCORNERS,ROUNDEDCORNERS,0,0,
+                DEFAULT_TEXT_SIZE);
+
+        fileList = new ScrollWidget(
+                new Vector2(
+                        scaleToScreenX(30),
+                        scaleToScreenY(30)
+                ),
+                new Vector2(
+                        scaleToScreenX(400),
+                        scaleToScreenY(990)),
+                ROUNDEDCORNERS,ROUNDEDCORNERS,ROUNDEDCORNERS,ROUNDEDCORNERS,
+                "Level Select:");
+
+        tempTitleScreen = new TextWidget(
+                new Vector2(
+                        scaleToScreenX(600),
+                        scaleToScreenY(100)),
+                new Vector2(
+                        scaleToScreenX(1000),
+                        scaleToScreenY(140)),
+                ROUNDEDCORNERS,ROUNDEDCORNERS,ROUNDEDCORNERS,ROUNDEDCORNERS,
+                "UNDERSQUARE", 110);
+
+
     }
 
     public void displayFiles(Map<String, File> files){
@@ -67,7 +80,8 @@ public class MainMenu extends ProgramState implements ProcessingClass {
                 new ButtonWidget(
                         ZERO_VECTOR_2,
                         new Vector2(scaleToScreenX(400),scaleToScreenY(40)),
-                        mapName,
+                        ROUNDEDCORNERS,ROUNDEDCORNERS,ROUNDEDCORNERS,ROUNDEDCORNERS,
+                        mapName, DEFAULT_TEXT_SIZE,
                         () -> {
                             try {
                                 UnderSquare.state.setLevel( GSON.fromJson(new FileReader(file),LevelMap.class),file);
@@ -81,7 +95,7 @@ public class MainMenu extends ProgramState implements ProcessingClass {
     @Override
     public void update(){
 
-        background(40);
+        background(UI_BACKGROUND_COLOR.getRGB());
 
         loadButton.update();
         fileList.update();
@@ -90,8 +104,9 @@ public class MainMenu extends ProgramState implements ProcessingClass {
     @Override
     public void paint() {
 
-        loadButton.paint(ZERO_VECTOR_2);
-        fileList.paint(ZERO_VECTOR_2);
+        loadButton.paint();
+        fileList.paint();
+        tempTitleScreen.paint();
 
     }
 

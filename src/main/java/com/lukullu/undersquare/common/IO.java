@@ -23,8 +23,7 @@ import static com.lukullu.undersquare.common.Constants.itemBoxDimensions;
 import static com.lukullu.undersquare.common.msc.Translation.scaleToScreenX;
 import static com.lukullu.undersquare.common.msc.Translation.scaleToScreenY;
 import static com.lukullu.undersquare.game.item.Potion.LARGE_POTION;
-import static com.lukullu.undersquare.game.item.Weapon.MASHINE_SHOTGUN;
-import static com.lukullu.undersquare.game.item.Weapon.PISTOL;
+import static com.lukullu.undersquare.game.item.Weapon.*;
 
 public class IO implements ProcessingClass {
 
@@ -52,8 +51,8 @@ public class IO implements ProcessingClass {
                     output[i][j] = new LevelGeometry(new Vector2(j * mapGridSize, i * mapGridSize),new Vector2(mapGridSize,mapGridSize), Color.black, true);
                 }else{
                     if(mapData[i][j] == 'p'){ UnderSquare.getGameHandler().entities.add(new Player(new Vector2(j * mapGridSize, i * mapGridSize), new Vector2(playerDimensions,playerDimensions))); }
-                    if(mapData[i][j] == 'b'){ UnderSquare.getGameHandler().entities.add(new Bouncer(new Vector2(j * mapGridSize, i * mapGridSize), new Vector2(enemyDimensions,enemyDimensions))); }
-                    if(mapData[i][j] == 'i'){ UnderSquare.getGameHandler().entities.add(new ItemBox(new Vector2(j * mapGridSize, i * mapGridSize), new Vector2(itemBoxDimensions,itemBoxDimensions), LARGE_POTION)); }
+                    if(mapData[i][j] == 'e'){ UnderSquare.getGameHandler().entities.add(new Bouncer(new Vector2(j * mapGridSize, i * mapGridSize), new Vector2(enemyDimensions,enemyDimensions))); }
+                    if(mapData[i][j] == 'i'){ UnderSquare.getGameHandler().entities.add(new ItemBox(new Vector2(j * mapGridSize, i * mapGridSize), new Vector2(itemBoxDimensions,itemBoxDimensions), QUADSHOT)); }
                 }
             }
         }

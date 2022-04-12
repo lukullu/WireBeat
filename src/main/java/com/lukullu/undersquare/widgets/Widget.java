@@ -10,13 +10,13 @@ public class Widget {
 	
 	public Vector2 pos;
 	public Vector2 dim;
-	
+	public int cornerBL, cornerBR, cornerTL, cornerTR;
 	public Color c = Color.white;
 	
-	public Widget(Vector2 _pos, Vector2 _dim) { init(_pos, _dim); }
+	public Widget(Vector2 _pos, Vector2 _dim, int _cornerBL, int _cornerBR, int _cornerTL, int _cornerTR) { init(_pos, _dim, _cornerBL, _cornerBR, _cornerTL, _cornerTR); }
 	
-	public void init(Vector2 _pos, Vector2 _dim){
-		pos = _pos; dim = _dim;
+	public void init(Vector2 _pos, Vector2 _dim, int _cornerBL, int _cornerBR, int _cornerTL, int _cornerTR){
+		pos = _pos; dim = _dim; cornerBL = _cornerBL; cornerBR = _cornerBR; cornerTL = _cornerTL; cornerTR = _cornerTR;
 	}
 	
 	// methods that take their relative position

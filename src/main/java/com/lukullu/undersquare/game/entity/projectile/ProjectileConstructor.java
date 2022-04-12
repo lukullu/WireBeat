@@ -6,6 +6,6 @@ import com.lukullu.undersquare.game.entity.Entity;
 @FunctionalInterface
 public interface ProjectileConstructor {
 
-	Projectile construct(Vector2 _pos, Vector2 _dim, Vector2 _initForce, int dmg, Entity _origin);
+	Projectile construct(Vector2 _pos, Vector2 _dim, Vector2 _initForce, int dmg, float ttl, Entity _origin);
 
 }

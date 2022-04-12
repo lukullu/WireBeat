@@ -5,6 +5,7 @@ import com.google.gson.GsonBuilder;
 import com.lukullu.undersquare.common.data.Vector2;
 import com.lukullu.undersquare.game.entity.projectile.Bullet;
 import com.lukullu.undersquare.game.entity.projectile.ProjectileConstructor;
+import com.lukullu.undersquare.game.entity.projectile.Quad;
 import com.lukullu.undersquare.game.entity.projectile.Shell;
 
 import java.awt.*;
@@ -19,6 +20,7 @@ public class Constants {
 	public static final float appliedForce = 45000f;
 	public static final float appliedShiftForce = 15000f;
 	public static final float coefficientOfFriction = 0.08f;
+	public static final int AFTERIMAGE_LENGTH = 6;
 	
 	//player
 	public static final int playerDimensions = 40;
@@ -43,11 +45,9 @@ public class Constants {
 	public static final int persuerAttackRange = 200;
 
 	//projectiles
-	
-	public static int prjTTL = 20;
 
 	//colors
-	public static final Color wallGridColor = Color.black;
+	public static final Color wallGridColor = new Color(0xFAFAFA);
 	public static final Color emptyGridColor = Color.white;
 	public static final Color errorGridColor = Color.orange;
 	public static final Color textColor = Color.black;
@@ -57,7 +57,18 @@ public class Constants {
 	public static final Color backgroundColor = Color.gray.darker().darker();
 	public static final Color prjColor = Color.black;
 	public static final Color enemyColor = Color.black;
-	
+
+	public static final Color UI_BACKGROUND_COLOR = new Color(0x070707);
+	public static final Color UI_CONTRAST_COLOR = new Color(0x1C1C1C);
+	public static final Color UI_FOCUS_COLOR = new Color(0x2F2F2F);
+	public static final Color UI_HEADLINE_COLOR = Color.white;
+	public static final Color UI_TEXT_COLOR = new Color(0x888888);
+	public static final Color UI_LINE_COLOR = new Color(0x4F4F4F);
+
+	//style
+	public static final int ROUNDEDCORNERS = 24;
+	public static final int DEFAULT_TEXT_SIZE = 15;
+
 	//mapGrid
 	public static int mapGridSize = 80; // TODO: create way for this to be loaded with a map
 
@@ -107,6 +118,7 @@ public class Constants {
 	//projectile constructions
 	public static final ProjectileConstructor bulletConstruction = Bullet::new;
 	public static final ProjectileConstructor shellConstruction = Shell::new;
+	public static final ProjectileConstructor quadConstruction = Quad::new;
 	
 	//weapons
 	public static final float innertiaCoefficient = 0.25f;

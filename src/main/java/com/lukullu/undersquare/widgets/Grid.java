@@ -1,6 +1,7 @@
 package com.lukullu.undersquare.widgets;
 
 import com.kilix.processing.ProcessingClass;
+import com.lukullu.undersquare.UnderSquare;
 import com.lukullu.undersquare.common.KeyHandler;
 import com.lukullu.undersquare.common.data.Vector2;
 import com.lukullu.undersquare.game.LevelMap;
@@ -44,8 +45,8 @@ public class Grid implements ProcessingClass {
 
 		}
 
-		offsetX = Math.round((getWidth() -  scaleToScreenX((int)dim.x))/2f);
-		offsetY = Math.round((getHeight() - scaleToScreenX((int)dim.y))/2f);
+		offsetX = Math.round((getWidth()/2f -  dim.x/2f));
+		offsetY = Math.round((getHeight()/2f - dim.y/2f));
 		
 	}
 	
@@ -85,12 +86,12 @@ public class Grid implements ProcessingClass {
 						fill(wallGridColor.getRGB());
 						break;
 					case ' ':
-						fill(emptyGridColor.getRGB());
+						fill(UI_CONTRAST_COLOR.getRGB());
 						break;
 					case 'p':
 						fill(playerGridColor.getRGB());
 						break;
-					case 'b':
+					case 'e':
 						fill(enemyGridColor.getRGB());
 						break;
 					case 'i':
@@ -100,12 +101,17 @@ public class Grid implements ProcessingClass {
 						fill(errorGridColor.getRGB());
 						break;
 				}
-				
-				rect(offsetX + j * (scaleToScreenX((int)dim.x) / (float) size) , offsetY + i * (scaleToScreenX((int)dim.x) / (float) size) , scaleToScreenX((int)dim.x) / (float) size, scaleToScreenY((int)dim.y) / (float) size);
+
+				if(i == 0 || i == size-1 || j == 0 || j == size-1){ stroke(wallGridColor.getRGB());} else stroke(UI_LINE_COLOR.getRGB());
+				rect(offsetX + j * (dim.x / (float) size) , offsetY + i * (dim.x / (float) size) , dim.x / (float) size, dim.y / (float) size);
 				
 			}
 			
 		}
+
+		stroke(wallGridColor.getRGB());
+		line(offsetX + (dim.x / (float) size), offsetY, offsetX + (dim.x / (float) size), offsetY + (size-1) * (dim.y / (float) size));
+		line(offsetX, offsetY + (dim.y / (float) size), offsetX + (size-1) * (dim.x / (float) size), offsetY + (dim.y / (float) size));
 		
 	}
 	
@@ -113,12 +119,19 @@ public class Grid implements ProcessingClass {
 	public void updateClickedCell(){
 		
 		if(getMousePressed()){
-			try{
-				map.mapData
-						[Math.round((getMouseY()-(scaleToScreenX((int)dim.y) / (float) size)/2f - offsetY)/(scaleToScreenX((int)dim.y) / (float) size))]
-						[Math.round((getMouseX()-(scaleToScreenX((int)dim.x) / (float) size)/2f - offsetX)/(scaleToScreenX((int)dim.x) / (float) size))]
-						= (""+ KeyHandler.lastPressedKey).toLowerCase().charAt(0);
-			}catch(Exception e){}
+			if(getMouseButton() == LEFT) {
+				try {
+					map.mapData
+							[Math.round((getMouseY() - (scaleToScreenX((int) dim.y) / (float) size) / 2f - offsetY) / (scaleToScreenX((int) dim.y) / (float) size))]
+							[Math.round((getMouseX() - (scaleToScreenX((int) dim.x) / (float) size) / 2f - offsetX) / (scaleToScreenX((int) dim.x) / (float) size))]
+							= ("" + KeyHandler.lastPressedKey).toLowerCase().charAt(0);
+				} catch (Exception e) {}
+			}else if(getMouseButton() == RIGHT){
+				UnderSquare.getLevelEditor().tileSettings.openMenu(map.mapData
+						[Math.round((getMouseY() - (scaleToScreenX((int) dim.y) / (float) size) / 2f - offsetY) / (scaleToScreenX((int) dim.y) / (float) size))]
+						[Math.round((getMouseX() - (scaleToScreenX((int) dim.x) / (float) size) / 2f - offsetX) / (scaleToScreenX((int) dim.x) / (float) size))]
+				);
+			}
 		}
 	}
 }

@@ -57,7 +57,9 @@ public class GameHandler extends ProgramState implements ProcessingClass {
 	}
 	
 	public void paint() {
+
 		background(backgroundColor.getRGB());
+
 		for(int i = 0; i < mapGeometry.length; i++){
 			for(int j = 0; j < mapGeometry[0].length; j++){
 				if(mapGeometry[i][j] != null) mapGeometry[i][j].paint();
@@ -65,7 +67,8 @@ public class GameHandler extends ProgramState implements ProcessingClass {
 		}
 		
 		for(int i = 0; i < entities.size(); i++){
-			entities.get(i).paint();
+			entities.get(i).paintAfterImages();
+			entities.get(i).paint(entities.get(i).pos,255, true);
 		}
 		
 		cam.paintHUD();

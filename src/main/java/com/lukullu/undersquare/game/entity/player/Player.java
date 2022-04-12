@@ -8,13 +8,14 @@ import com.lukullu.undersquare.common.msc.Debug;
 import com.lukullu.undersquare.common.msc.Filter;
 import com.lukullu.undersquare.game.entity.Entity;
 import com.lukullu.undersquare.game.item.Weapon;
+import com.lukullu.undersquare.menu.MainMenu;
 
 import static com.lukullu.undersquare.common.Constants.*;
 import static com.lukullu.undersquare.common.collision.Collision.entityCollision;
 
 public class Player extends Entity {
 	
-	public Weapon weapon = Weapon.MASHINEGUN;
+	public Weapon weapon = Weapon.FLAMETHROWER;
 	float timeSinceLastShot = 0;
 	
 	public Player(Vector2 _pos, Vector2 _dim) {
@@ -101,6 +102,7 @@ public class Player extends Entity {
 						prjDim,
 						startingForce,
 						weapon.dmg,
+						weapon.ttl,
 						origin
 				)
 		);

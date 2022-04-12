@@ -7,10 +7,7 @@ import com.lukullu.undersquare.common.IO;
 import com.lukullu.undersquare.common.ProgramState;
 import com.lukullu.undersquare.common.data.Vector2;
 import com.lukullu.undersquare.game.LevelMap;
-import com.lukullu.undersquare.widgets.Grid;
-import com.lukullu.undersquare.widgets.ScrollWidget;
-import com.lukullu.undersquare.widgets.TextWidget;
-import com.lukullu.undersquare.widgets.Widget;
+import com.lukullu.undersquare.widgets.*;
 import com.lukullu.undersquare.widgets.button.ButtonWidget;
 import com.lukullu.undersquare.widgets.button.LoadMapButton;
 import com.lukullu.undersquare.widgets.button.SaveMapButton;
@@ -28,7 +25,9 @@ public class LevelEditor extends ProgramState implements ProcessingClass {
 	public Grid curGrid;
 	public Widget saveButton;
 	public Widget loadButton;
-	public ScrollWidget fileList = new ScrollWidget(ZERO_VECTOR_2, ZERO_VECTOR_2);
+	public Widget gridBackDrop;
+	public ListWidget tileSettings;
+	public ScrollWidget fileList = new ScrollWidget(ZERO_VECTOR_2, ZERO_VECTOR_2,ROUNDEDCORNERS,ROUNDEDCORNERS,ROUNDEDCORNERS,ROUNDEDCORNERS,"Maps:");
 	
 	public Widget[] legend;
 	
@@ -39,7 +38,7 @@ public class LevelEditor extends ProgramState implements ProcessingClass {
 	public void init() {
 		
 		setLevel(null,null);
-		curGrid = new Grid(new Vector2(1000,1000),32,mapToBeLoaded, fileToBeLoaded);
+		curGrid = new Grid(new Vector2(scaleToScreenX(950),scaleToScreenY(950)),32,mapToBeLoaded, fileToBeLoaded);
 		initWidgets();
 		displayFiles(IO.collectFiles());
 		
@@ -47,60 +46,65 @@ public class LevelEditor extends ProgramState implements ProcessingClass {
 	
 	
 	public void initWidgets() {
-		
+
+		gridBackDrop = new TextWidget(
+						new Vector2(
+								curGrid.offsetX - scaleToScreenX(25),
+								curGrid.offsetY - scaleToScreenY(25)
+						),
+						new Vector2(
+								curGrid.dim.x + scaleToScreenX(50),
+								curGrid.dim.y + scaleToScreenY(50)),
+					ROUNDEDCORNERS,ROUNDEDCORNERS,ROUNDEDCORNERS,ROUNDEDCORNERS,
+					"", DEFAULT_TEXT_SIZE);
+
 		saveButton = new SaveMapButton(
 				new Vector2(
-						scaleToScreenX(40),
+						scaleToScreenX(30),
 						scaleToScreenY(1000)
 				),
 				new Vector2(
 						scaleToScreenX(200),
-						scaleToScreenY(40)
-				),
-				this
-		);
+						scaleToScreenY(40)),
+				ROUNDEDCORNERS,0,0,0,
+				DEFAULT_TEXT_SIZE,
+				this);
 		
 		loadButton = new LoadMapButton(
 				new Vector2(
-						scaleToScreenX(40) + scaleToScreenX(200),
+						scaleToScreenX(30) + scaleToScreenX(200),
 						scaleToScreenY(1000)
 				),
 				new Vector2(
 						scaleToScreenX(200),
-						scaleToScreenY(40)
-				)
-		);
+						scaleToScreenY(40)),
+				0,ROUNDEDCORNERS,0,0,
+				DEFAULT_TEXT_SIZE);
 		
 		
 		fileList = new ScrollWidget(
 				new Vector2(
-						scaleToScreenX(40),
-						scaleToScreenY(20)
+						scaleToScreenX(30),
+						scaleToScreenY(150)
 				),
 				new Vector2(
 						scaleToScreenX(400),
-						scaleToScreenY(900)
-				)
+						scaleToScreenY(870)),
+				ROUNDEDCORNERS,ROUNDEDCORNERS,ROUNDEDCORNERS,ROUNDEDCORNERS,
+				"Maps:"
 		);
-		
-		
-		legend = new Widget[20];
-		
-		for(int i = 0; i < legend.length; i++){
-			
-			legend[i] = new TextWidget(
-					new Vector2(
-							getWidth() - scaleToScreenX(440),
-							(i+1) * scaleToScreenY(40) + i * scaleToScreenY(10)
-					),
-					new Vector2(
-							scaleToScreenX(400),
-							scaleToScreenY(40)
-					),
-					editorLegendText[i]
-			);
-			
-		}
+
+		tileSettings = new ListWidget(
+				new Vector2(
+						scaleToScreenX(1490),
+						scaleToScreenY(400)
+				),
+				new Vector2(
+						scaleToScreenX(400),
+						scaleToScreenY(640)),
+				ROUNDEDCORNERS,ROUNDEDCORNERS,ROUNDEDCORNERS,ROUNDEDCORNERS
+		);
+
 		
 	}
 
@@ -108,9 +112,10 @@ public class LevelEditor extends ProgramState implements ProcessingClass {
 
 		files.forEach((mapName,file) -> { fileList.addWidget(
 				new ButtonWidget(
-						ZERO_VECTOR_2,
-						new Vector2(scaleToScreenX(400),scaleToScreenY(40)),
-						mapName,
+						new Vector2(scaleToScreenX(10),0),
+						new Vector2(scaleToScreenX(380),scaleToScreenY(40)),
+						ROUNDEDCORNERS,ROUNDEDCORNERS,ROUNDEDCORNERS,ROUNDEDCORNERS,
+						mapName, DEFAULT_TEXT_SIZE,
 						() -> {
 							try {
 								UnderSquare.state.setLevel( GSON.fromJson(new FileReader(file),LevelMap.class),file);
@@ -125,27 +130,24 @@ public class LevelEditor extends ProgramState implements ProcessingClass {
 	@Override
 	public void update(){
 		
-		background(40);
-		
 		curGrid.update();
 		saveButton.update();
 		loadButton.update();
 		fileList.update();
+		tileSettings.update();
 		
 	}
 	@Override
 	public void paint() {
-		
+
+		background(UI_BACKGROUND_COLOR.getRGB());
+
+		gridBackDrop.paint();
 		curGrid.paint();
+		fileList.paint(ZERO_VECTOR_2);
 		saveButton.paint(ZERO_VECTOR_2);
 		loadButton.paint(ZERO_VECTOR_2);
-		fileList.paint(ZERO_VECTOR_2);
-		
-		for(int i = 0; i < legend.length; i++){
-			
-			legend[i].paint(ZERO_VECTOR_2);
-			
-		}
+		tileSettings.paint();
 		
 	}
 

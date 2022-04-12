@@ -32,16 +32,11 @@ public class Filter {
 		return output;
 	}
 
-	public static ArrayList<Entity> filterBrotherPrj(ArrayList<Entity> list, Projectile e){
+	public static ArrayList<Entity> filterProjectiles(ArrayList<Entity> list){
 
 		ArrayList<Entity> output = new ArrayList<>();
-
-		for(int i = 0; i < list.size(); i++){
-
-			if(list.get(i) instanceof Projectile) { Projectile temp = (Projectile) list.get(i); if(temp.origin != e.origin) output.add(list.get(i)); };
-
-		}
-
+		for(int i = 0; i < list.size(); i++)
+			if(!(list.get(i) instanceof Projectile)) output.add(list.get(i));
 		return output;
 	}
 

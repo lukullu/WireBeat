@@ -4,6 +4,7 @@ import com.kilix.processing.ProcessingClass;
 import com.lukullu.undersquare.common.data.Vector2;
 import com.lukullu.undersquare.widgets.TextWidget;
 
+import static com.lukullu.undersquare.common.Constants.*;
 import static com.lukullu.undersquare.common.Constants.textColor;
 import static com.lukullu.undersquare.common.collision.Collision.pointRectangleCollision;
 
@@ -14,13 +15,13 @@ public class ButtonWidget extends TextWidget implements ProcessingClass {
 	
 	public boolean reset = false;
 	
-	public ButtonWidget(Vector2 _pos, Vector2 _dim, String _text){
-		super(_pos, _dim, _text);
+	public ButtonWidget(Vector2 _pos, Vector2 _dim, int _cornerBL, int _cornerBR, int _cornerTL, int _cornerTR, String _text, int _textSize){
+		super(_pos, _dim, _cornerBL, _cornerBR, _cornerTL, _cornerTR, _text, _textSize);
 		onClick = () -> {};
 	}
 	
-	public ButtonWidget(Vector2 _pos, Vector2 _dim, String _text, Runnable _onClick){
-		super(_pos, _dim, _text);
+	public ButtonWidget(Vector2 _pos, Vector2 _dim, int _cornerBL, int _cornerBR, int _cornerTL, int _cornerTR, String _text, int _textSize, Runnable _onClick){
+		super(_pos, _dim, _cornerBL, _cornerBR, _cornerTL, _cornerTR, _text, _textSize);
 		onClick = _onClick;
 	}
 	
@@ -33,7 +34,7 @@ public class ButtonWidget extends TextWidget implements ProcessingClass {
 			buttonState = ButtonState.IDLE;
 		}
 		
-		if(buttonState == ButtonState.HOVER && getMousePressed() && !reset){
+		if(buttonState == ButtonState.HOVER && getMousePressed() && getMouseButton() == LEFT && !reset){
 			buttonState = ButtonState.CLICKED;
 			reset = true;
 			onClick();
@@ -49,20 +50,21 @@ public class ButtonWidget extends TextWidget implements ProcessingClass {
 	public void paint(Vector2 _rel) {
 		switch(buttonState) {
 			case CLICKED:
-				fill(c.brighter().getRGB());
+				fill(UI_BACKGROUND_COLOR.getRGB());
 				break;
 			case HOVER:
-				fill(c.darker().getRGB());
+				fill(UI_FOCUS_COLOR.getRGB());
 				break;
 			default:
-				fill(c.getRGB());
+				fill(UI_CONTRAST_COLOR.getRGB());
 		}
-		
-		rect(pos.x + _rel.x, pos.y + _rel.y, dim.x, dim.y);
-		fill(textColor.getRGB());
+
+		noStroke();
+		rect(pos.x + _rel.x, pos.y + _rel.y, dim.x, dim.y, cornerTL, cornerTR, cornerBR, cornerBL);
+		fill(UI_TEXT_COLOR.getRGB());
 		textAlign(CENTER);
-		textSize(30);
-		text(text, pos.x + _rel.x + dim.x/2, pos.y + _rel.y + dim.y-dim.y/4);
+		textSize(DEFAULT_TEXT_SIZE);
+		text(text, pos.x + _rel.x + dim.x/2, pos.y + _rel.y + dim.y/4 + DEFAULT_TEXT_SIZE);
 	}
 	
 	public void onClick() { onClick.run(); }

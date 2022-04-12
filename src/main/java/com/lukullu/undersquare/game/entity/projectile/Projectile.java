@@ -16,12 +16,14 @@ public class Projectile extends Entity implements ProcessingClass {
 	
 	public Entity origin;
 	public float tl = 0;
+	public float ttl;
 	
-	public Projectile(Vector2 _pos, Vector2 _dim, Vector2 _initForce, int _dmg, Entity _origin){
+	public Projectile(Vector2 _pos, Vector2 _dim, Vector2 _initForce, int _dmg, float _ttl, Entity _origin){
 		super(_pos, _dim);
 		force = _initForce;
 		origin = _origin;
 		dmg = _dmg;
+		ttl = _ttl;
 		c = prjColor;
 	}
 	
@@ -47,7 +49,7 @@ public class Projectile extends Entity implements ProcessingClass {
 		
 		pos = new Vector2(pos.x + deltaPos.x, pos.y + deltaPos.y);
 		
-		if(tl >= prjTTL){ UnderSquare.getGameHandler().entities.remove(this);}
+		if(tl >= ttl){ UnderSquare.getGameHandler().entities.remove(this);}
 		tl += deltaTime;
 		
 	}
@@ -56,13 +58,9 @@ public class Projectile extends Entity implements ProcessingClass {
 	public void entityCollide() {
 		
 		entityColliders = entityCollision(this);
-		entityColliders = Filter.filterBrotherPrj(entityColliders,this);
-
 		if(entityColliders.contains(origin)) entityColliders.remove(origin);
-		if(origin instanceof Projectile) { Projectile origin2 = (Projectile) origin;  if(entityColliders.contains(origin2)); entityColliders.remove(origin2);}
+		entityColliders = Filter.filterProjectiles(entityColliders);
 
-		entityColliders = Filter.filterEntities(entityColliders,new Projectile(new Vector2(0,0), new Vector2(0,0), new Vector2(0,0), 0, this));
-		if(entityColliders.size() > 0){ Debug.displayTemp(""+entityColliders.get(0).getClass()); }
 		if(entityColliders.size() > 0){ collide(); }
 		
 	}

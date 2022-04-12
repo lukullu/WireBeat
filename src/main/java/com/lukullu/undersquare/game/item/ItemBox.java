@@ -1,6 +1,7 @@
 package com.lukullu.undersquare.game.item;
 
 import com.lukullu.undersquare.common.data.Vector2;
+import com.lukullu.undersquare.common.msc.Debug;
 import com.lukullu.undersquare.game.entity.Entity;
 import com.lukullu.undersquare.game.entity.player.Player;
 
@@ -26,8 +27,9 @@ public class ItemBox extends Entity {
     }
 
     @Override
-    public void paint(){
-        noStroke();
+    public void paint(Vector2 _pos, float opacity, boolean stroke){
+
+        if(stroke) stroke(0); else noStroke();
         fill(item.color.getRGB());
         rect(pos.x,pos.y,dim.x,dim.y);
         stroke(1);

@@ -6,6 +6,7 @@ import com.lukullu.undersquare.common.data.Vector2;
 import com.lukullu.undersquare.common.msc.Debug;
 import com.lukullu.undersquare.common.msc.Filter;
 import com.lukullu.undersquare.game.GameHandler;
+import com.lukullu.undersquare.game.entity.player.Player;
 import com.lukullu.undersquare.game.entity.projectile.Projectile;
 import com.lukullu.undersquare.game.item.Weapon;
 
@@ -27,6 +28,8 @@ public class Entity implements ProcessingClass {
 	public Vector2 pos;
 	public Vector2 dim;
 	public Vector2 deltaPos;
+
+	public Vector2[] prevPos = new Vector2[AFTERIMAGE_LENGTH];
 	
 	public Vector2 force = new Vector2(0,0);
 	public Direction[] collisionDirection = { Direction.NONE, Direction.NONE };
@@ -52,6 +55,24 @@ public class Entity implements ProcessingClass {
 	public void update(){
 		simulate();
 		behavior();
+		updatePreviousPositions();
+	}
+
+	public void updatePreviousPositions(){
+
+		Vector2[] prevPrevPos = prevPos; //xD
+		for(int i = prevPos.length-1; i > 0; i--){
+			prevPos[i] = prevPos[i-1];
+		}
+		prevPos[0] = pos;
+	}
+
+	public void paintAfterImages(){
+
+		for(int i = 0; i < prevPos.length; i++){
+			if(prevPos[i] != null)
+				paint(prevPos[i],125-(125f/prevPos.length)*i, false);
+		}
 	}
 	
 	public void collide(){
@@ -66,26 +87,20 @@ public class Entity implements ProcessingClass {
 	
 	//default behavior
 	public void behavior() {}
-	
 	public void takeDMG(int amount){ HP -= amount; if(HP <= 0){ onDeath(); } }
 	public void takeKnockback(Vector2 amount){ force.x += amount.x * innertiaCoefficient;  force.y += amount.y *innertiaCoefficient;}
-	
 	public void onDeath(){ if(state instanceof GameHandler) { GameHandler game = (GameHandler) state; game.entitiesToDie.add(this);}}
 	
 	public void entityCollide() {
-		
 		entityColliders = entityCollision(this);
 		if(entityColliders.size() > 0){ collide(); }
-		
 	}
 	
 	//default physics
 	public void simulate(){
-		
 		deltaPos = new Vector2(0,0);
 		Vector2 vel;
 		Vector2 acc;
-		
 		
 		if(collisionDirection[0] == Direction.RIGHT && force.x > 0) { force = new Vector2(0,force.y); }
 		if(collisionDirection[0] == Direction.LEFT  && force.x < 0) { force = new Vector2(0,force.y); }
@@ -113,10 +128,10 @@ public class Entity implements ProcessingClass {
 	}
 	
 	//default paint
-	public void paint(){
-		stroke(1);
-		fill(c.getRGB());
-		rect(pos.x,pos.y,dim.x,dim.y);
+	public void paint( Vector2 _pos, float opacity, boolean stroke){
+		if (stroke) stroke(1); else noStroke();
+		fill(c.getRGB(),opacity);
+		rect(_pos.x,_pos.y,dim.x,dim.y);
 		
 	}
 	

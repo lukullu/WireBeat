@@ -11,11 +11,36 @@ import com.lukullu.undersquare.widgets.Grid;
 import java.io.BufferedReader;
 import java.util.List;
 
+import static com.lukullu.undersquare.common.Constants.*;
+import static com.lukullu.undersquare.common.msc.Translation.scaleToScreenX;
+import static com.lukullu.undersquare.common.msc.Translation.scaleToScreenY;
+
 public class LoadMapButton extends ButtonWidget {
 	
-	public LoadMapButton(Vector2 _pos, Vector2 _dim){
-		super(_pos, _dim, "Load");
+	public LoadMapButton(Vector2 _pos, Vector2 _dim ,int _cornerBL, int _cornerBR, int _cornerTL, int _cornerTR, int _textSize){
+		super(_pos, _dim, _cornerBL, _cornerBR, _cornerTL, _cornerTR, "Load", _textSize);
 
+	}
+
+	@Override
+	public void paint(Vector2 _rel) {
+		switch(buttonState) {
+			case CLICKED:
+				fill(UI_BACKGROUND_COLOR.getRGB());
+				break;
+			case HOVER:
+				fill(UI_FOCUS_COLOR.getRGB());
+				break;
+			default:
+				fill(UI_CONTRAST_COLOR.getRGB());
+		}
+
+		noStroke();
+		rect(pos.x + _rel.x, pos.y + _rel.y, dim.x, dim.y, cornerTL, cornerTR, cornerBR, cornerBL);
+		fill(UI_TEXT_COLOR.getRGB());
+		textAlign(CENTER);
+		textSize(DEFAULT_TEXT_SIZE);
+		text(text, pos.x + _rel.x + dim.x/2, pos.y + _rel.y + dim.y/4 + DEFAULT_TEXT_SIZE);
 	}
 
 	@Override
@@ -24,7 +49,7 @@ public class LoadMapButton extends ButtonWidget {
 		if(UnderSquare.state instanceof LevelEditor) {
 			assert UnderSquare.getLevelEditor() != null;
 			if (UnderSquare.getLevelEditor().mapToBeLoaded != null)
-				UnderSquare.getLevelEditor().curGrid = new Grid(new Vector2(1000, 1000), UnderSquare.getLevelEditor().mapToBeLoaded.mapData.length, UnderSquare.getLevelEditor().mapToBeLoaded, UnderSquare.getLevelEditor().fileToBeLoaded);
+				UnderSquare.getLevelEditor().curGrid = new Grid(new Vector2(scaleToScreenX(950), scaleToScreenY(950)), UnderSquare.getLevelEditor().mapToBeLoaded.mapData.length, UnderSquare.getLevelEditor().mapToBeLoaded, UnderSquare.getLevelEditor().fileToBeLoaded);
 		} else
 		if(UnderSquare.state instanceof MainMenu){
 			assert UnderSquare.getMainMenu() != null;

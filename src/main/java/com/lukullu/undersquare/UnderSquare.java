@@ -41,6 +41,7 @@ public class UnderSquare extends ExtendedPApplet {
 	
 	public void keyReleased() { KeyHandler.updateReleased(); }
 	public void keyPressed() { KeyHandler.updatePressed(); }
+
 	public void mouseWheel(MouseEvent event) {
 		if (state instanceof LevelEditor) {
 			LevelEditor editor = (LevelEditor) state;
