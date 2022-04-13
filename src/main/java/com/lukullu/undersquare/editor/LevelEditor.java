@@ -4,6 +4,7 @@ import com.kilix.processing.ProcessingClass;
 import com.lukullu.undersquare.UnderSquare;
 import com.lukullu.undersquare.common.Constants;
 import com.lukullu.undersquare.common.IO;
+import com.lukullu.undersquare.common.KeyHandler;
 import com.lukullu.undersquare.common.ProgramState;
 import com.lukullu.undersquare.common.data.Vector2;
 import com.lukullu.undersquare.common.msc.Debug;
@@ -37,7 +38,13 @@ public class LevelEditor extends ProgramState implements ProcessingClass {
 	
 	public LevelMap mapToBeLoaded;
 	public File fileToBeLoaded;
-	
+
+	public int curItemIndex = 0;
+	public Map<Vector2,Integer> itemIndicesMap = new HashMap<>();
+	public int curEnemyIndex = 0;
+	public Map<Vector2,Integer> enemyIndicesMap = new HashMap<>();
+
+
 	@Override
 	public void init() {
 		
@@ -209,6 +216,11 @@ public class LevelEditor extends ProgramState implements ProcessingClass {
 				break;
 			case 'i':
 
+				int defaultValue = 0;
+				if(KeyHandler.shift) defaultValue = curItemIndex;
+				if(!itemIndicesMap.containsKey(pos))itemIndicesMap.put(pos,curItemIndex);
+
+				curItemIndex = itemIndicesMap.getOrDefault(pos, defaultValue);
 				tileSettings.widgets.add(
 						new TextWidget(
 								new Vector2(scaleToScreenX(10),0),
@@ -224,7 +236,7 @@ public class LevelEditor extends ProgramState implements ProcessingClass {
 								new Vector2(scaleToScreenX(10),0),
 								new Vector2(scaleToScreenX(380),scaleToScreenY(30)),
 								ROUNDEDCORNERS, ROUNDEDCORNERS, ROUNDEDCORNERS, ROUNDEDCORNERS,
-								itemTypeNames[curEnemyIndex],
+								itemTypeNames[curItemIndex],
 								DEFAULT_TEXT_SIZE,
 								() -> {itemCycle(pos);}
 						)
@@ -280,24 +292,26 @@ public class LevelEditor extends ProgramState implements ProcessingClass {
 
 	}
 
-	public int curEnemyIndex = 0;
-	public Map<Vector2,Integer> enemyIndicesMap = new HashMap<>();
-
 	public void enemyCycle(Vector2 pos){
 		curEnemyIndex++;
 		curEnemyIndex %= enemyTypeNames.length;
-		if(tileSettings.widgets.get(1) instanceof ButtonWidget) {ButtonWidget temp = (ButtonWidget) tileSettings.widgets.get(1); temp.text = enemyTypeNames[curEnemyIndex];}
-		enemyIndicesMap.put(pos,curEnemyIndex);
-	}
 
-	public int curItemIndex = 0;
-	public Map<Vector2,Integer> itemIndicesMap = new HashMap<>();
+		enemyIndicesMap.put(pos,curEnemyIndex);
+		if(tileSettings.widgets.get(1) instanceof ButtonWidget)
+			{ButtonWidget temp = (ButtonWidget) tileSettings.widgets.get(1); temp.text = enemyTypeNames[curEnemyIndex];}
+
+	}
 
 	public void itemCycle(Vector2 pos){
 		curItemIndex++;
 		curItemIndex %= itemTypeNames.length;
-		if(tileSettings.widgets.get(1) instanceof ButtonWidget) {ButtonWidget temp = (ButtonWidget) tileSettings.widgets.get(1); temp.text = itemTypeNames[curItemIndex];}
+
 		itemIndicesMap.put(pos,curItemIndex);
+		println(itemIndicesMap.get(pos));
+		println(pos);
+		//println(pos + "|" + curItemIndex);
+		if(tileSettings.widgets.get(1) instanceof ButtonWidget)
+			{ButtonWidget temp = (ButtonWidget) tileSettings.widgets.get(1); temp.text = itemTypeNames[curItemIndex];}
 	}
 
 	public void initLegend(){

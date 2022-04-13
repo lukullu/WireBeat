@@ -1,5 +1,7 @@
 package com.lukullu.undersquare.common.data;
 
+import java.util.Objects;
+
 public class Vector2 {
 	
 	public Vector2(Number _x, Number _y) { x = _x.floatValue(); y = _y.floatValue(); }
@@ -7,9 +9,20 @@ public class Vector2 {
 	public float x, y;
 	
 	public String toString() { return String.format("Vec2(%.2f, %.2f)", x, y); }
-	
-	
-	
+
+	@Override
+	public boolean equals(Object o) {
+		if (this == o) return true;
+		if (o == null || getClass() != o.getClass()) return false;
+		Vector2 vector2 = (Vector2) o;
+		return Float.compare(vector2.x, x) == 0 && Float.compare(vector2.y, y) == 0;
+	}
+
+	@Override
+	public int hashCode() {
+		return Objects.hash(x, y);
+	}
+
 	public static Vector2 toVector2(float h) {
 		float s = (float) Math.cos(45)/h;
 		

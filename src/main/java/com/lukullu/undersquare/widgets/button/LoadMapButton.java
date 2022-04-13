@@ -11,6 +11,7 @@ import com.lukullu.undersquare.widgets.Grid;
 import java.io.BufferedReader;
 import java.util.List;
 
+import static com.lukullu.undersquare.common.IO.*;
 import static com.lukullu.undersquare.common.Constants.*;
 import static com.lukullu.undersquare.common.msc.Translation.scaleToScreenX;
 import static com.lukullu.undersquare.common.msc.Translation.scaleToScreenY;
@@ -49,6 +50,7 @@ public class LoadMapButton extends ButtonWidget {
 		if(UnderSquare.state instanceof LevelEditor) {
 			assert UnderSquare.getLevelEditor() != null;
 			if (UnderSquare.getLevelEditor().mapToBeLoaded != null)
+				UnderSquare.getLevelEditor().itemIndicesMap = getItemPositionsfromIndices(UnderSquare.getLevelEditor().mapToBeLoaded);
 				UnderSquare.getLevelEditor().curGrid = new Grid(new Vector2(scaleToScreenX(950), scaleToScreenY(950)), UnderSquare.getLevelEditor().mapToBeLoaded.mapData.length, UnderSquare.getLevelEditor().mapToBeLoaded, UnderSquare.getLevelEditor().fileToBeLoaded);
 		} else
 		if(UnderSquare.state instanceof MainMenu){

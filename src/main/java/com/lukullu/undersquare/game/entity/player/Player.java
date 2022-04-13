@@ -15,7 +15,7 @@ import static com.lukullu.undersquare.common.collision.Collision.entityCollision
 
 public class Player extends Entity {
 	
-	public Weapon weapon = Weapon.FLAMETHROWER;
+	public Weapon weapon = Weapon.PISTOL;
 	float timeSinceLastShot = 0;
 	
 	public Player(Vector2 _pos, Vector2 _dim) {
