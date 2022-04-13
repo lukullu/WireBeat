@@ -5,14 +5,23 @@ import com.lukullu.undersquare.common.msc.Debug;
 import com.lukullu.undersquare.game.entity.Entity;
 import com.lukullu.undersquare.game.entity.player.Player;
 
+import static com.lukullu.undersquare.common.Constants.ITEM_ROTATION_RATE;
+
 public class ItemBox extends Entity {
 
     Item item;
+    float rotation = 0;
+    float scale;
 
     public ItemBox(Vector2 _pos, Vector2 _dim, Item _item){ super(_pos, _dim); item = _item;}
 
     @Override
-    public void update(){}
+    public void update(){
+        rotation += ITEM_ROTATION_RATE;
+        rotation %= 2 * Math.PI;
+        scale = (float)(Math.sin(System.currentTimeMillis() / 800.0) * 0.2 + 1);
+
+    }
 
     @Override
     public void collide(){
@@ -29,10 +38,18 @@ public class ItemBox extends Entity {
     @Override
     public void paint(Vector2 _pos, float opacity, boolean stroke){
 
-        if(stroke) stroke(0); else noStroke();
+        pushMatrix();
+        translate(pos.x + dim.x/2, pos.y + dim.y/2);
+        rotate(rotation);
+        noStroke();
+        scale(scale);
         fill(item.color.getRGB());
-        rect(pos.x,pos.y,dim.x,dim.y);
+        rectMode(CENTER);
+        rect(0,0,dim.x,dim.y);
+        popMatrix();
+        rectMode(CORNER);
         stroke(1);
+
     }
 
 }

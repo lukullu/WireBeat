@@ -1,6 +1,7 @@
 package com.lukullu.undersquare.game.entity;
 
 import com.kilix.processing.ProcessingClass;
+import com.lukullu.undersquare.UnderSquare;
 import com.lukullu.undersquare.common.data.Direction;
 import com.lukullu.undersquare.common.data.Vector2;
 import com.lukullu.undersquare.common.msc.Debug;
@@ -115,6 +116,11 @@ public class Entity implements ProcessingClass {
 		vel = new Vector2(acc.x * deltaTime, acc.y * deltaTime);
 		// velocity * deltaTime = deltaPosition;
 		deltaPos = new Vector2(vel.x * deltaTime, vel.y * deltaTime);
+
+		// if stuck -> reverse thrust!
+		if(force.x + force.y != 0 && deltaPos.x + deltaPos.y == 0)
+			force = new Vector2(-force.x,-force.y);
+
 		
 		if(deltaPos.x < 0.001 && deltaPos.x > -0.001){ deltaPos.x = 0; }
 		if(deltaPos.y < 0.001 && deltaPos.y > -0.001){ deltaPos.y = 0; }

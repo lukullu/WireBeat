@@ -11,6 +11,8 @@ import com.lukullu.undersquare.game.entity.projectile.Shell;
 import java.awt.*;
 import java.io.File;
 
+import static java.lang.Math.PI;
+
 public class Constants {
 
 	// TODO before handover: WTH is this:
@@ -26,9 +28,13 @@ public class Constants {
 	public static final int playerDimensions = 40;
 	public static final int playerHP = 100;
 	public static final int playerContactDMG = 1;
+	public static final float PLAYER_DASH_DELAY = 1;
+	public static final float DASH_ACCELERATION = 3;
+
 
 	//itemBox
 	public static final int itemBoxDimensions = 30;
+	public static final float ITEM_ROTATION_RATE = (float)PI/180;
 
 	//AI
 	public static final float timeUntilNextBehaviorUpdate = 2;
@@ -70,7 +76,7 @@ public class Constants {
 	public static final int DEFAULT_TEXT_SIZE = 15;
 
 	//mapGrid
-	public static int mapGridSize = 80; // TODO: create way for this to be loaded with a map
+	public static int mapGridSize = 160; // TODO: create way for this to be loaded with a map
 
 	//LevelEdit  or
 	public static final int defaultGridSize = 32;

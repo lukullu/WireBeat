@@ -13,6 +13,7 @@ public class KeyHandler implements ProcessingClass {
 	public static boolean q;
 	
 	public static boolean shift = false;
+	public static boolean ctrl  = false;
 	public static boolean up    = false;
 	public static boolean down  = false;
 	public static boolean left  = false;
@@ -36,6 +37,7 @@ public class KeyHandler implements ProcessingClass {
 		down  = checkKeyCodePressed(DOWN);
 		left  = checkKeyCodePressed(LEFT);
 		right = checkKeyCodePressed(RIGHT);
+		ctrl  = checkKeyCodePressed(CONTROL);
 		
 	}
 	
@@ -53,66 +55,65 @@ public class KeyHandler implements ProcessingClass {
 		down  = checkKeyCodeReleased(DOWN);
 		left  = checkKeyCodeReleased(LEFT);
 		right = checkKeyCodeReleased(RIGHT);
+		ctrl = checkKeyCodeReleased(CONTROL);
 		
 	}
 	
 	public static boolean checkKeyPressed(String keyDesignator){
 		char keyName = keyDesignator.charAt(0);
 		boolean old = false;
-		switch (keyName) {
-			case 'w' -> old = w;
-			case 'a' -> old = a;
-			case 's' -> old = s;
-			case 'd' -> old = d;
-			case 'e' -> old = e;
-			case 'q' -> old = q;
-			default -> {
-			}
-		}
+		old = switch (keyName) {
+			case 'w' -> w;
+			case 'a' -> a;
+			case 's' -> s;
+			case 'd' -> d;
+			case 'e' -> e;
+			case 'q' -> q;
+			default -> old;
+		};
 		return ("" + UnderSquare.INSTANCE.key).toLowerCase().charAt(0) == keyName || old;
 	}
 	
 	public static boolean checkKeyCodePressed(int keyName){
 		boolean old = false;
-		switch (keyName) {
-			case SHIFT -> old = shift;
-			case UP -> old = up;
-			case DOWN -> old = down;
-			case LEFT -> old = left;
-			case RIGHT -> old = right;
-			default -> {
-			}
-		}
+		old = switch (keyName) {
+			case SHIFT   -> shift;
+			case UP      -> up;
+			case DOWN    -> down;
+			case LEFT    -> left;
+			case RIGHT   -> right;
+			case CONTROL -> ctrl;
+			default -> old;
+		};
 		return UnderSquare.INSTANCE.keyCode == keyName || old;
 	}
 	
 	public static boolean checkKeyReleased(String keyDesignator){
 		char keyName = keyDesignator.charAt(0);
 		boolean old = false;
-		switch (keyName) {
-			case 'w' -> old = w;
-			case 'a' -> old = a;
-			case 's' -> old = s;
-			case 'd' -> old = d;
-			case 'e' -> old = e;
-			case 'q' -> old = q;
-			default -> {
-			}
-		}
+		old = switch (keyName) {
+			case 'w' -> w;
+			case 'a' -> a;
+			case 's' -> s;
+			case 'd' -> d;
+			case 'e' -> e;
+			case 'q' -> q;
+			default  -> old;
+		};
 		return ("" + UnderSquare.INSTANCE.key).toLowerCase().charAt(0) != keyName && old;
 	}
 	
 	public static boolean checkKeyCodeReleased(int keyName){
 		boolean old = false;
-		switch (keyName) {
-			case SHIFT -> old = shift;
-			case UP -> old = up;
-			case DOWN -> old = down;
-			case LEFT -> old = left;
-			case RIGHT -> old = right;
-			default -> {
-			}
-		}
+		old = switch (keyName) {
+			case SHIFT   -> shift;
+			case UP      -> up;
+			case DOWN    -> down;
+			case LEFT    -> left;
+			case RIGHT   -> right;
+			case CONTROL -> ctrl;
+			default -> old;
+		};
 		return UnderSquare.INSTANCE.keyCode != keyName && old;
 	}
 	

@@ -1,29 +1,26 @@
 package com.lukullu.undersquare.common;
 
 import com.kilix.processing.ProcessingClass;
-import  com.lukullu.undersquare.common.Constants.*;
 import com.lukullu.undersquare.UnderSquare;
 import com.lukullu.undersquare.common.data.Vector2;
-import com.lukullu.undersquare.editor.LevelEditor;
 import com.lukullu.undersquare.game.LevelMap;
 import com.lukullu.undersquare.game.entity.enemy.Bouncer;
 import com.lukullu.undersquare.game.entity.enemy.Enemy;
 import com.lukullu.undersquare.game.entity.player.Player;
 import com.lukullu.undersquare.game.geometry.LevelGeometry;
-import com.lukullu.undersquare.game.geometry.MapElement;
-import com.lukullu.undersquare.game.item.ItemBox;
 import com.lukullu.undersquare.game.item.Item;
-import com.lukullu.undersquare.widgets.button.ButtonWidget;
+import com.lukullu.undersquare.game.item.ItemBox;
 
 import java.awt.*;
-import java.io.*;
-import java.util.*;
-import java.util.List;
+import java.io.File;
+import java.io.FileReader;
+import java.io.PrintWriter;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Locale;
+import java.util.Map;
 
 import static com.lukullu.undersquare.common.Constants.*;
-import static com.lukullu.undersquare.common.Constants.itemBoxDimensions;
-import static com.lukullu.undersquare.common.msc.Translation.scaleToScreenX;
-import static com.lukullu.undersquare.common.msc.Translation.scaleToScreenY;
 import static com.lukullu.undersquare.game.item.Potion.*;
 import static com.lukullu.undersquare.game.item.Weapon.*;
 

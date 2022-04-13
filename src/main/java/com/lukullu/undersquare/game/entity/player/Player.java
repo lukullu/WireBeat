@@ -10,6 +10,9 @@ import com.lukullu.undersquare.game.entity.Entity;
 import com.lukullu.undersquare.game.item.Weapon;
 import com.lukullu.undersquare.menu.MainMenu;
 
+import java.security.Key;
+
+import static com.lukullu.undersquare.UnderSquare.deltaTime;
 import static com.lukullu.undersquare.common.Constants.*;
 import static com.lukullu.undersquare.common.collision.Collision.entityCollision;
 
@@ -17,6 +20,7 @@ public class Player extends Entity {
 	
 	public Weapon weapon = Weapon.PISTOL;
 	float timeSinceLastShot = 0;
+	float dashDelay = 0;
 	
 	public Player(Vector2 _pos, Vector2 _dim) {
 		super(_pos, _dim);
@@ -45,21 +49,19 @@ public class Player extends Entity {
 		
 		float fx = 0;
 		float fy = 0;
-		
-		if(KeyHandler.a && KeyHandler.shift){ fx -= appliedShiftForce;} else
+
 		if(KeyHandler.a){ fx -= appliedForce;}
-		
-		if(KeyHandler.d && KeyHandler.shift){ fx += appliedShiftForce;} else
+
 		if(KeyHandler.d){ fx += appliedForce;}
-		
-		if(KeyHandler.w && KeyHandler.shift){ fy -= appliedShiftForce;} else
+
 		if(KeyHandler.w){ fy -= appliedForce;}
-		
-		if(KeyHandler.s && KeyHandler.shift){ fy += appliedShiftForce;} else
+
 		if(KeyHandler.s){ fy += appliedForce;}
 		
 		force = new Vector2(fx == 0 ? force.x : force.x + fx, fy == 0 ? force.y : force.y + fy);
-		
+
+		if(KeyHandler.shift && dashDelay >= PLAYER_DASH_DELAY){ force = new Vector2(force.x * DASH_ACCELERATION, force.y * DASH_ACCELERATION); dashDelay = 0;}
+
 		if(weapon != null){
 			if(timeSinceLastShot > 1/weapon.fireRate){
 				if(KeyHandler.up || KeyHandler.down || KeyHandler.left || KeyHandler.right) {
@@ -77,7 +79,8 @@ public class Player extends Entity {
 				}
 			}
 		}
-		timeSinceLastShot += UnderSquare.deltaTime;
+		timeSinceLastShot += deltaTime;
+		dashDelay += deltaTime;
 	}
 	
 	public void fireWeapon(Entity origin, Weapon weapon, Direction dir) {
