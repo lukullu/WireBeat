@@ -2,6 +2,7 @@ package com.lukullu.undersquare.game.entity.projectile;
 
 import com.kilix.processing.ProcessingClass;
 import com.lukullu.undersquare.UnderSquare;
+import com.lukullu.undersquare.common.Constants;
 import com.lukullu.undersquare.common.data.Direction;
 import com.lukullu.undersquare.common.data.Vector2;
 import com.lukullu.undersquare.common.msc.Debug;
@@ -17,13 +18,16 @@ public class Projectile extends Entity implements ProcessingClass {
 	public Entity origin;
 	public float tl = 0;
 	public float ttl;
+	public float inertiaCoefficient;
 	
-	public Projectile(Vector2 _pos, Vector2 _dim, Vector2 _initForce, int _dmg, float _ttl, Entity _origin){
+	public Projectile(Vector2 _pos, Vector2 _dim, Vector2 _initForce, int _dmg, float _ttl, float _mass, float _inertiaCoefficient, Entity _origin){
 		super(_pos, _dim);
 		force = _initForce;
 		origin = _origin;
 		dmg = _dmg;
 		ttl = _ttl;
+		mass = _mass;
+		inertiaCoefficient = _inertiaCoefficient;
 		c = prjColor;
 	}
 	
@@ -53,7 +57,10 @@ public class Projectile extends Entity implements ProcessingClass {
 		tl += deltaTime;
 		
 	}
-	
+
+	@Override
+	public void takeDMG(int amount ){ HP -= amount; if(HP <= 0){ onDeath(); }}
+
 	@Override
 	public void entityCollide() {
 		

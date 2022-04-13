@@ -2,6 +2,7 @@ package com.lukullu.undersquare.game.entity;
 
 import com.kilix.processing.ProcessingClass;
 import com.lukullu.undersquare.UnderSquare;
+import com.lukullu.undersquare.common.Constants;
 import com.lukullu.undersquare.common.data.Direction;
 import com.lukullu.undersquare.common.data.Vector2;
 import com.lukullu.undersquare.common.msc.Debug;
@@ -37,6 +38,8 @@ public class Entity implements ProcessingClass {
 	public ArrayList<Entity> entityColliders;
 	
 	public float mass = 10;
+
+	public float iFrameTimeCounter = 0;
 	
 	public Color c = Color.black;
 	
@@ -56,6 +59,7 @@ public class Entity implements ProcessingClass {
 	public void update(){
 		simulate();
 		behavior();
+		iFrameTimeCounter += deltaTime;
 		updatePreviousPositions();
 	}
 
@@ -85,10 +89,9 @@ public class Entity implements ProcessingClass {
 		}
 		
 	}
-	
-	//default behavior
+
 	public void behavior() {}
-	public void takeDMG(int amount){ HP -= amount; if(HP <= 0){ onDeath(); } }
+	public void takeDMG(int amount ){ if(iFrameTimeCounter >= Constants.I_FRAME_TIME){ HP -= amount; if(HP <= 0){ onDeath(); } iFrameTimeCounter = 0;} }
 	public void takeKnockback(Vector2 amount){ force.x += amount.x * innertiaCoefficient;  force.y += amount.y *innertiaCoefficient;}
 	public void onDeath(){ if(state instanceof GameHandler) { GameHandler game = (GameHandler) state; game.entitiesToDie.add(this);}}
 	
@@ -130,7 +133,8 @@ public class Entity implements ProcessingClass {
 		collisionDirection = calcCollisionAxis(new Vector2(pos.x + deltaPos.x,pos.y + deltaPos.y), dim);
 		
 		pos = new Vector2(pos.x + deltaPos.x, pos.y + deltaPos.y);
-		
+
+
 	}
 	
 	//default paint

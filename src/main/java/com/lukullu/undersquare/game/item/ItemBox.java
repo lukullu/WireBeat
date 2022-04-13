@@ -36,6 +36,9 @@ public class ItemBox extends Entity {
     }
 
     @Override
+    public void takeDMG(int amount ){ HP -= amount; if(HP <= 0){ onDeath(); }}
+
+    @Override
     public void paint(Vector2 _pos, float opacity, boolean stroke){
 
         pushMatrix();

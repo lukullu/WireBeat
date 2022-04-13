@@ -5,8 +5,8 @@ import com.lukullu.undersquare.game.entity.Entity;
 
 public class Bullet extends Projectile{
 	
-	public Bullet(Vector2 _pos, Vector2 _dim, Vector2 _initForce, int _dmg, float _ttl, Entity _origin) {
-		super(_pos, _dim, _initForce, _dmg, _ttl, _origin);
+	public Bullet(Vector2 _pos, Vector2 _dim, Vector2 _initForce, int _dmg, float _ttl, float _mass, float _inertiaCoefficient, Entity _origin) {
+		super(_pos, _dim, _initForce, _dmg, _ttl, _mass, _inertiaCoefficient, _origin);
 	}
 	
 }

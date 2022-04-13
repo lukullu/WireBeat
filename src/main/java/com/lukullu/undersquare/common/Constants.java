@@ -23,12 +23,13 @@ public class Constants {
 	public static final float appliedShiftForce = 15000f;
 	public static final float coefficientOfFriction = 0.08f;
 	public static final int AFTERIMAGE_LENGTH = 6;
+	public static final float I_FRAME_TIME = 0.1f;
 	
 	//player
 	public static final int playerDimensions = 40;
 	public static final int playerHP = 100;
 	public static final int playerContactDMG = 1;
-	public static final float PLAYER_DASH_DELAY = 1;
+	public static final float PLAYER_DASH_DELAY = 0.7f;
 	public static final float DASH_ACCELERATION = 3;
 
 

@@ -94,9 +94,10 @@ public class Player extends Entity {
 		if(dir == Direction.UP)   {startingForce.y -= weapon.initForce.y; directedBlowBackForce.y -= weapon.blowBackForce.x; }
 		if(dir == Direction.DOWN) {startingForce.y += weapon.initForce.y; directedBlowBackForce.y += weapon.blowBackForce.x; }
 		
-		startingForce.x += origin.force.x * 0.25;
-		startingForce.y += origin.force.y * 0.25;
-		
+		startingForce.x += origin.force.x * weapon.inertiaCoefficient;
+		startingForce.y += origin.force.y * weapon.inertiaCoefficient;
+
+		assert UnderSquare.getGameHandler() != null;
 		UnderSquare.getGameHandler().entities.add( weapon.projectileConstructor.construct(
 						new Vector2(
 								origin.pos.x + origin.dim.x/2 - prjDim.x/2,
@@ -106,6 +107,8 @@ public class Player extends Entity {
 						startingForce,
 						weapon.dmg,
 						weapon.ttl,
+						weapon.mass,
+						weapon.inertiaCoefficient,
 						origin
 				)
 		);
