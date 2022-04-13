@@ -6,6 +6,7 @@ import com.lukullu.undersquare.common.Constants;
 import com.lukullu.undersquare.common.IO;
 import com.lukullu.undersquare.common.ProgramState;
 import com.lukullu.undersquare.common.data.Vector2;
+import com.lukullu.undersquare.common.msc.Debug;
 import com.lukullu.undersquare.game.LevelMap;
 import com.lukullu.undersquare.widgets.*;
 import com.lukullu.undersquare.widgets.button.ButtonWidget;
@@ -15,10 +16,14 @@ import com.lukullu.undersquare.widgets.button.SaveMapButton;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.Map;
+import java.util.Vector;
 
 import static com.lukullu.undersquare.common.Constants.*;
 import static com.lukullu.undersquare.common.msc.Translation.*;
+import static java.lang.Math.round;
 
 public class LevelEditor extends ProgramState implements ProcessingClass {
 	
@@ -27,9 +32,8 @@ public class LevelEditor extends ProgramState implements ProcessingClass {
 	public Widget loadButton;
 	public Widget gridBackDrop;
 	public ListWidget tileSettings;
+	public ListWidget legend;
 	public ScrollWidget fileList = new ScrollWidget(ZERO_VECTOR_2, ZERO_VECTOR_2,ROUNDEDCORNERS,ROUNDEDCORNERS,ROUNDEDCORNERS,ROUNDEDCORNERS,"Maps:");
-	
-	public Widget[] legend;
 	
 	public LevelMap mapToBeLoaded;
 	public File fileToBeLoaded;
@@ -105,7 +109,20 @@ public class LevelEditor extends ProgramState implements ProcessingClass {
 				ROUNDEDCORNERS,ROUNDEDCORNERS,ROUNDEDCORNERS,ROUNDEDCORNERS
 		);
 
-		
+		legend = new ListWidget(
+				new Vector2(
+						scaleToScreenX(1490),
+						0
+				),
+				new Vector2(
+						scaleToScreenX(200),
+						scaleToScreenY(380)
+				),
+				ROUNDEDCORNERS,ROUNDEDCORNERS,0,0
+		);
+
+		initLegend();
+
 	}
 
 	public void displayFiles(Map<String, File> files){
@@ -135,6 +152,7 @@ public class LevelEditor extends ProgramState implements ProcessingClass {
 		loadButton.update();
 		fileList.update();
 		tileSettings.update();
+		legend.update();
 		
 	}
 	@Override
@@ -148,7 +166,8 @@ public class LevelEditor extends ProgramState implements ProcessingClass {
 		saveButton.paint(ZERO_VECTOR_2);
 		loadButton.paint(ZERO_VECTOR_2);
 		tileSettings.paint();
-		
+		legend.paint();
+
 	}
 
 	@Override
@@ -158,5 +177,233 @@ public class LevelEditor extends ProgramState implements ProcessingClass {
 		fileToBeLoaded = file;
 
 	}
-	
+
+	public void openMenu(Vector2 pos){
+
+		char selected = UnderSquare.getLevelEditor().curGrid.map.mapData[(int)pos.x][(int)pos.y];
+		tileSettings.widgets = new ArrayList<>();
+
+		switch (selected){
+			case 'p':
+
+				tileSettings.widgets.add(
+						new TextWidget(
+								new Vector2(scaleToScreenX(10),0),
+								new Vector2(scaleToScreenX(380),scaleToScreenY(30)),
+								ROUNDEDCORNERS, ROUNDEDCORNERS, ROUNDEDCORNERS, ROUNDEDCORNERS,
+								"Player Settings:",
+								DEFAULT_TEXT_SIZE
+						)
+				);
+
+				tileSettings.widgets.add(
+						new ButtonWidget(
+								new Vector2(scaleToScreenX(10),0),
+								new Vector2(scaleToScreenX(380),scaleToScreenY(30)),
+								ROUNDEDCORNERS, ROUNDEDCORNERS, ROUNDEDCORNERS, ROUNDEDCORNERS,
+								"test",
+								DEFAULT_TEXT_SIZE,
+								() -> {}
+						)
+				);
+				break;
+			case 'i':
+
+				tileSettings.widgets.add(
+						new TextWidget(
+								new Vector2(scaleToScreenX(10),0),
+								new Vector2(scaleToScreenX(380),scaleToScreenY(30)),
+								ROUNDEDCORNERS, ROUNDEDCORNERS, ROUNDEDCORNERS, ROUNDEDCORNERS,
+								"Item Settings:",
+								DEFAULT_TEXT_SIZE
+						)
+				);
+
+				tileSettings.widgets.add(
+						new ButtonWidget(
+								new Vector2(scaleToScreenX(10),0),
+								new Vector2(scaleToScreenX(380),scaleToScreenY(30)),
+								ROUNDEDCORNERS, ROUNDEDCORNERS, ROUNDEDCORNERS, ROUNDEDCORNERS,
+								itemTypeNames[curEnemyIndex],
+								DEFAULT_TEXT_SIZE,
+								() -> {itemCycle(pos);}
+						)
+				);
+				break;
+			case 'e':
+				tileSettings.widgets.add(
+						new TextWidget(
+								new Vector2(scaleToScreenX(10),0),
+								new Vector2(scaleToScreenX(380),scaleToScreenY(30)),
+								ROUNDEDCORNERS, ROUNDEDCORNERS, ROUNDEDCORNERS, ROUNDEDCORNERS,
+								"Enemy Settings:",
+								DEFAULT_TEXT_SIZE
+						)
+				);
+
+				tileSettings.widgets.add(
+						new ButtonWidget(
+								new Vector2(scaleToScreenX(10),0),
+								new Vector2(scaleToScreenX(380),scaleToScreenY(30)),
+								ROUNDEDCORNERS, ROUNDEDCORNERS, ROUNDEDCORNERS, ROUNDEDCORNERS,
+								enemyTypeNames[curEnemyIndex],
+								DEFAULT_TEXT_SIZE,
+								() -> {enemyCycle(pos);}
+						)
+				);
+
+				break;
+			default:
+				tileSettings.widgets.add(
+						new TextWidget(
+								new Vector2(scaleToScreenX(10),0),
+								new Vector2(scaleToScreenX(380),scaleToScreenY(30)),
+								ROUNDEDCORNERS, ROUNDEDCORNERS, ROUNDEDCORNERS, ROUNDEDCORNERS,
+								"Game Settings:",
+								DEFAULT_TEXT_SIZE
+						)
+				);
+
+				tileSettings.widgets.add(
+						new ButtonWidget(
+								new Vector2(scaleToScreenX(10),0),
+								new Vector2(scaleToScreenX(380),scaleToScreenY(30)),
+								ROUNDEDCORNERS, ROUNDEDCORNERS, ROUNDEDCORNERS, ROUNDEDCORNERS,
+								"test",
+								DEFAULT_TEXT_SIZE,
+								() -> {}
+						)
+				);
+
+				break;
+		}
+
+	}
+
+	public int curEnemyIndex = 0;
+	public Map<Vector2,Integer> enemyIndicesMap = new HashMap<>();
+
+	public void enemyCycle(Vector2 pos){
+		curEnemyIndex++;
+		curEnemyIndex %= enemyTypeNames.length;
+		if(tileSettings.widgets.get(1) instanceof ButtonWidget) {ButtonWidget temp = (ButtonWidget) tileSettings.widgets.get(1); temp.text = enemyTypeNames[curEnemyIndex];}
+		enemyIndicesMap.put(pos,curEnemyIndex);
+	}
+
+	public int curItemIndex = 0;
+	public Map<Vector2,Integer> itemIndicesMap = new HashMap<>();
+
+	public void itemCycle(Vector2 pos){
+		curItemIndex++;
+		curItemIndex %= itemTypeNames.length;
+		if(tileSettings.widgets.get(1) instanceof ButtonWidget) {ButtonWidget temp = (ButtonWidget) tileSettings.widgets.get(1); temp.text = itemTypeNames[curItemIndex];}
+		itemIndicesMap.put(pos,curItemIndex);
+	}
+
+	public void initLegend(){
+
+
+		legend.widgets.add(
+				new LegendWidget(
+						new Vector2(
+								scaleToScreenX(10),
+								scaleToScreenY(30)
+						),
+						new Vector2(
+								scaleToScreenX(180),
+								scaleToScreenY(24)
+						),
+						ROUNDEDCORNERS,ROUNDEDCORNERS,ROUNDEDCORNERS,ROUNDEDCORNERS,
+						"Wall ... #",
+						DEFAULT_TEXT_SIZE,
+						wallGridColor
+				)
+		);
+
+		legend.widgets.add(
+				new LegendWidget(
+						new Vector2(
+								scaleToScreenX(10),
+								scaleToScreenY(30)
+						),
+						new Vector2(
+								scaleToScreenX(180),
+								scaleToScreenY(24)
+						),
+						ROUNDEDCORNERS,ROUNDEDCORNERS,ROUNDEDCORNERS,ROUNDEDCORNERS,
+						"Floor ... SPACE",
+						DEFAULT_TEXT_SIZE,
+						emptyGridColor
+				)
+		);
+
+		legend.widgets.add(
+				new LegendWidget(
+						new Vector2(
+								scaleToScreenX(10),
+								scaleToScreenY(30)
+						),
+						new Vector2(
+								scaleToScreenX(180),
+								scaleToScreenY(24)
+						),
+						ROUNDEDCORNERS,ROUNDEDCORNERS,ROUNDEDCORNERS,ROUNDEDCORNERS,
+						"Player ... P",
+						DEFAULT_TEXT_SIZE,
+						playerGridColor
+				)
+		);
+
+		legend.widgets.add(
+				new LegendWidget(
+						new Vector2(
+								scaleToScreenX(10),
+								scaleToScreenY(30)
+						),
+						new Vector2(
+								scaleToScreenX(180),
+								scaleToScreenY(24)
+						),
+						ROUNDEDCORNERS,ROUNDEDCORNERS,ROUNDEDCORNERS,ROUNDEDCORNERS,
+						"Enemy ... E",
+						DEFAULT_TEXT_SIZE,
+						enemyGridColor
+				)
+		);
+
+		legend.widgets.add(
+				new LegendWidget(
+						new Vector2(
+								scaleToScreenX(10),
+								scaleToScreenY(30)
+						),
+						new Vector2(
+								scaleToScreenX(180),
+								scaleToScreenY(24)
+						),
+						ROUNDEDCORNERS,ROUNDEDCORNERS,ROUNDEDCORNERS,ROUNDEDCORNERS,
+						"ItemBox ... I",
+						DEFAULT_TEXT_SIZE,
+						itemBoxGridColor
+				)
+		);
+
+		legend.widgets.add(
+				new LegendWidget(
+						new Vector2(
+								scaleToScreenX(10),
+								scaleToScreenY(30)
+						),
+						new Vector2(
+								scaleToScreenX(180),
+								scaleToScreenY(24)
+						),
+						ROUNDEDCORNERS,ROUNDEDCORNERS,ROUNDEDCORNERS,ROUNDEDCORNERS,
+						"ERROR ... N/A",
+						DEFAULT_TEXT_SIZE,
+						errorGridColor
+				)
+		);
+	}
+
 }

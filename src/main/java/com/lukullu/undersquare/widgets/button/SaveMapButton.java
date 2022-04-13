@@ -44,6 +44,7 @@ public class SaveMapButton extends ButtonWidget implements ProcessingClass {
 	public void onClick(){
 
 		if(UnderSquare.getLevelEditor().curGrid.map.name != "Empty Template")
+			//TODO: get indices of item and enemy types and format them to an int array so they can be saved
 			IO.saveLevelMapAsJson(UnderSquare.getLevelEditor().curGrid.map,UnderSquare.getLevelEditor().curGrid.file);
 		
 		if (UnderSquare.getLevelEditor() != null) {

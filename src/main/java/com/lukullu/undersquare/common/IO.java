@@ -40,6 +40,7 @@ public class IO implements ProcessingClass {
         return output;
     }
 
+    //TODO: Read item and enemy types from pos and index in int array
     public static LevelGeometry[][] createMapElements(char[][] mapData, boolean[][] collisionData){
 
         LevelGeometry[][] output = new LevelGeometry[mapData.length][mapData[0].length];

@@ -23,7 +23,7 @@ public class UnderSquare extends ExtendedPApplet {
 	public void setup() {
 		//universalSetup
 		frameRate(60);
-		state = new MainMenu();
+		state = new LevelEditor();
 		state.init();
 	}
 	

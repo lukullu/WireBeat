@@ -40,7 +40,7 @@ public class Constants {
 	public static final int bouncerHP = 10;
 	public static final int bouncerContactDMG = 5;
 
-	//Persuer
+	//Pursuer
 	public static final int persuerDetectionRange = 1000;
 	public static final int persuerAttackRange = 200;
 
@@ -48,8 +48,8 @@ public class Constants {
 
 	//colors
 	public static final Color wallGridColor = new Color(0xFAFAFA);
-	public static final Color emptyGridColor = Color.white;
-	public static final Color errorGridColor = Color.orange;
+	public static final Color emptyGridColor = new Color(0x1C1C1C).brighter().brighter();
+	public static final Color errorGridColor = Color.magenta;
 	public static final Color textColor = Color.black;
 	public static final Color playerGridColor = Color.red;
 	public static final Color enemyGridColor = Color.green.darker();
@@ -58,7 +58,7 @@ public class Constants {
 	public static final Color prjColor = Color.black;
 	public static final Color enemyColor = Color.black;
 
-	public static final Color UI_BACKGROUND_COLOR = new Color(0x070707);
+	public static final Color UI_BACKGROUND_COLOR = new Color(0x0101010);
 	public static final Color UI_CONTRAST_COLOR = new Color(0x1C1C1C);
 	public static final Color UI_FOCUS_COLOR = new Color(0x2F2F2F);
 	public static final Color UI_HEADLINE_COLOR = Color.white;
@@ -72,7 +72,7 @@ public class Constants {
 	//mapGrid
 	public static int mapGridSize = 80; // TODO: create way for this to be loaded with a map
 
-	//LevelEdior
+	//LevelEdit  or
 	public static final int defaultGridSize = 32;
 
 	//rayCast
@@ -85,29 +85,22 @@ public class Constants {
 	//camera
 	public static Vector2 cameraPosition = new Vector2(600,300);
 	public static Vector2 cameraDimensions = new Vector2(720,480);
-	
-	public static final String[] editorLegendText =
+
+	public static final String[] enemyTypeNames =
 			{
-					"'#' ... Wall     ",
-					"'   ' ... Empty   ",
-					"'P' ... Player   ",
-					"'B' ... Bouncer  ",
-					"'I' ... ItemBox  ",
-					"'X' ... tbc  ",
-					"'X' ... tbc  ",
-					"'X' ... tbc  ",
-					"'X' ... tbc  ",
-					"'X' ... tbc  ",
-					"'X' ... tbc  ",
-					"'X' ... tbc  ",
-					"'X' ... tbc  ",
-					"'X' ... tbc  ",
-					"'X' ... tbc  ",
-					"'X' ... tbc  ",
-					"'X' ... tbc  ",
-					"'X' ... tbc  ",
-					"'X' ... tbc  ",
-					"'X' ... tbc  "
+					"Bouncer"
+			};
+
+	public static final String[] itemTypeNames =
+			{
+					"Pistol",
+					"Machine Gun",
+					"Flamethrower",
+					"Quadshot",
+					"Shotgun",
+					"Small Potion",
+					"Medium Potion",
+					"Large Potion"
 			};
 
 	//prj

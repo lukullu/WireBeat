@@ -55,18 +55,4 @@ public class ListWidget extends Widget implements ProcessingClass {
 
     }
 
-    public void openMenu(char selected){
-
-        if(selected == 'P'){
-
-        }
-        if(selected == 'E'){
-
-        }
-        if(selected == 'I'){
-
-        }
-
-    }
-
 }
