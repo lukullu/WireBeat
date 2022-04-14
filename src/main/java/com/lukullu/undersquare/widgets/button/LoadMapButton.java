@@ -15,8 +15,8 @@ import static com.lukullu.undersquare.common.msc.Translation.scaleToScreenY;
 
 public class LoadMapButton extends ButtonWidget {
 	
-	public LoadMapButton(Vector2 _pos, Vector2 _dim ,int _cornerBL, int _cornerBR, int _cornerTL, int _cornerTR, int _textSize){
-		super(_pos, _dim, _cornerBL, _cornerBR, _cornerTL, _cornerTR, "Load", _textSize);
+	public LoadMapButton(Vector2 _pos, Vector2 _dim ,int _cornerBL, int _cornerBR, int _cornerTL, int _cornerTR, int _textSize, int _alignment){
+		super(_pos, _dim, _cornerBL, _cornerBR, _cornerTL, _cornerTR, "Load", _textSize, _alignment);
 
 	}
 

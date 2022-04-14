@@ -4,6 +4,7 @@ import com.kilix.processing.ProcessingClass;
 import com.lukullu.undersquare.UnderSquare;
 import com.lukullu.undersquare.common.ProgramState;
 import com.lukullu.undersquare.common.data.Vector2;
+import com.lukullu.undersquare.game.GameHandler;
 import com.lukullu.undersquare.widgets.TextWidget;
 import com.lukullu.undersquare.widgets.Widget;
 import com.lukullu.undersquare.widgets.button.ButtonWidget;
@@ -14,49 +15,46 @@ import static com.lukullu.undersquare.common.Constants.*;
 import static com.lukullu.undersquare.common.msc.Translation.scaleToScreenX;
 import static com.lukullu.undersquare.common.msc.Translation.scaleToScreenY;
 
-public class PauseMenu extends ProgramState implements ProcessingClass{
+public class DeathMenu extends ProgramState implements ProcessingClass {
 
-    ProgramState pausedState;
+    GameHandler previousState;
 
-    public Widget resumeButton;
+    public Widget retryButton;
     public Widget exitButton;
-    public Widget titleText;
+    public Widget deathMessage;
 
-    public PauseMenu(ProgramState _pausedState){
-        pausedState = _pausedState;
+    public DeathMenu(GameHandler _previousState){
+        previousState = _previousState;
+        previousState.didIDie = false;
     }
 
     @Override
     public void init(){
         UnderSquare.INSTANCE.cursor(ARROW);
-        translate(pausedState.cam.rel.x,pausedState.cam.rel.y);
+        translate(previousState.cam.rel.x,previousState.cam.rel.y);
         initWidgets();
-
-        //background
-        fill(Color.BLACK.getRGB(),100);
-        rect(0,0,getWidth(),getHeight());
-
     }
 
     public void initWidgets(){
 
+        int deathMessageIndex = (int)random(RANDOM_DEATH_MESSAGES.length);
         textSize(24);
-        titleText = new TextWidget(
+        deathMessage = new TextWidget(
                 new Vector2(
-                        getWidth()/2 - (scaleToScreenX(40) + textWidth("PAUSE"))/2f,
+                        getWidth()/2 - (scaleToScreenX(40) + textWidth(RANDOM_DEATH_MESSAGES[deathMessageIndex]))/2f,
                         getHeight()/2 - scaleToScreenY(100)
                 ),
                 new Vector2(
-                        scaleToScreenX(40) + textWidth("PAUSE"),
+                        scaleToScreenX(40) + textWidth(RANDOM_DEATH_MESSAGES[deathMessageIndex]),
                         scaleToScreenY(60)
                 ),
                 ROUNDEDCORNERS, ROUNDEDCORNERS, ROUNDEDCORNERS, ROUNDEDCORNERS,
-                "PAUSE",
+                RANDOM_DEATH_MESSAGES[deathMessageIndex],
                 24,
                 CENTER
         );
 
-        resumeButton = new ButtonWidget(
+        retryButton = new ButtonWidget(
                 new Vector2(
                         getWidth()/2 - scaleToScreenX(100),
                         getHeight()/2 - scaleToScreenY(20)
@@ -66,10 +64,10 @@ public class PauseMenu extends ProgramState implements ProcessingClass{
                         scaleToScreenY(40)
                 ),
                 ROUNDEDCORNERS, ROUNDEDCORNERS, ROUNDEDCORNERS, ROUNDEDCORNERS,
-                "Resume Game",
+                "Retry Game",
                 DEFAULT_TEXT_SIZE,
                 CENTER,
-                () -> { UnderSquare.changeStateWithoutInit(pausedState);}
+                () -> { UnderSquare.changeState(previousState);}
         );
 
         exitButton = new ButtonWidget(
@@ -92,17 +90,22 @@ public class PauseMenu extends ProgramState implements ProcessingClass{
     @Override
     public void update(){
 
-        resumeButton.update();
+        retryButton.update();
         exitButton.update();
+        deathMessage.update();
     }
 
     @Override
     public void paint(){
 
-        //elements
-        resumeButton.paint();
+        //background
+        fill(Color.BLACK.getRGB(),10);
+        rect(0,0,getWidth(),getHeight());
+
+        retryButton.paint();
         exitButton.paint();
-        titleText.paint();
+        deathMessage.paint();
     }
 
 }
+

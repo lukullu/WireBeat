@@ -34,6 +34,7 @@ public class Constants {
 	public static final int playerContactDMG = 1;
 	public static final float PLAYER_DASH_DELAY = 0.7f;
 	public static final float DASH_ACCELERATION = 3;
+	public static final float PLAYER_DASH_IFRAME_TIME = 0.25f;
 
 
 	//itemBox
@@ -130,5 +131,14 @@ public class Constants {
 	// I/O
 	public static final Gson GSON = new GsonBuilder().setLenient().setPrettyPrinting().create();
 	public static final File MAPS_BASE_DIR = new File("./data/maps/");
-	
+
+
+	public static String[] RANDOM_DEATH_MESSAGES = {
+			"YOU DIED",
+			"Not even the carrion eaters are interested in your irradiated corpse...",
+			"You were yeeted out of existence",
+			"DEATH",
+			"You took the L"
+	};
+
 }

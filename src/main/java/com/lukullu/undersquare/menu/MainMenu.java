@@ -51,7 +51,8 @@ public class MainMenu extends ProgramState implements ProcessingClass {
                         scaleToScreenX(400),
                         scaleToScreenY(40)),
                 ROUNDEDCORNERS,ROUNDEDCORNERS,0,0,
-                DEFAULT_TEXT_SIZE);
+                DEFAULT_TEXT_SIZE,
+                CENTER);
 
         editorButton = new ButtonWidget(
                 new Vector2(
@@ -65,6 +66,7 @@ public class MainMenu extends ProgramState implements ProcessingClass {
                 ROUNDEDCORNERS, ROUNDEDCORNERS, ROUNDEDCORNERS, ROUNDEDCORNERS,
                 "Level Editor",
                 DEFAULT_TEXT_SIZE,
+                CENTER,
                 () -> { UnderSquare.changeState(new LevelEditor());}
         );
 
@@ -87,7 +89,8 @@ public class MainMenu extends ProgramState implements ProcessingClass {
                         scaleToScreenX(1000),
                         scaleToScreenY(140)),
                 ROUNDEDCORNERS,ROUNDEDCORNERS,ROUNDEDCORNERS,ROUNDEDCORNERS,
-                "UnderSquare", 110);
+                "UnderSquare", 110
+                , LEFT);
 
         exitButton = new ButtonWidget(
                 new Vector2(
@@ -101,6 +104,7 @@ public class MainMenu extends ProgramState implements ProcessingClass {
                 ROUNDEDCORNERS, ROUNDEDCORNERS, ROUNDEDCORNERS, ROUNDEDCORNERS,
                 "Exit Game",
                 DEFAULT_TEXT_SIZE,
+                CENTER,
                 () -> { UnderSquare.INSTANCE.exit();}
         );
     }
@@ -113,6 +117,7 @@ public class MainMenu extends ProgramState implements ProcessingClass {
                         new Vector2(scaleToScreenX(400),scaleToScreenY(40)),
                         ROUNDEDCORNERS,ROUNDEDCORNERS,ROUNDEDCORNERS,ROUNDEDCORNERS,
                         mapName, DEFAULT_TEXT_SIZE,
+                        CENTER,
                         () -> {
                             try {
                                 UnderSquare.state.setLevel( GSON.fromJson(new FileReader(file),LevelMap.class),file);

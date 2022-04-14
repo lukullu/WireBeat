@@ -27,7 +27,12 @@ public class Player extends Entity {
 	}
 
 	@Override
-	public void onDeath() {}
+	public void onDeath() {
+
+		assert UnderSquare.getGameHandler() != null;
+		UnderSquare.getGameHandler().paint();
+		UnderSquare.getGameHandler().didIDie = true;
+	}
 
 	@Override
 	public void entityCollide() {
@@ -58,7 +63,7 @@ public class Player extends Entity {
 		force = new Vector2(fx == 0 ? force.x : force.x + fx, fy == 0 ? force.y : force.y + fy);
 
 		//dash
-		if(KeyHandler.shift && dashDelay >= PLAYER_DASH_DELAY){ force = new Vector2(force.x * DASH_ACCELERATION, force.y * DASH_ACCELERATION); dashDelay = 0; iFrameTimeCounter = 0;}
+		if(KeyHandler.shift && dashDelay >= PLAYER_DASH_DELAY){ force = new Vector2(force.x * DASH_ACCELERATION, force.y * DASH_ACCELERATION); dashDelay = 0; iFrameTimeCounter = PLAYER_DASH_IFRAME_TIME;}
 
 		if(weapon != null){
 			if(timeSinceLastShot > 1/weapon.fireRate){

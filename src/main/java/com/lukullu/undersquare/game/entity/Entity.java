@@ -56,7 +56,7 @@ public class Entity implements ProcessingClass {
 	public void update(){
 		simulate();
 		behavior();
-		iFrameTimeCounter += deltaTime;
+		iFrameTimeCounter -= deltaTime;
 		updatePreviousPositions();
 	}
 
@@ -88,7 +88,7 @@ public class Entity implements ProcessingClass {
 	}
 
 	public void behavior() {}
-	public void takeDMG(int amount ){ if(iFrameTimeCounter >= Constants.I_FRAME_TIME){ HP -= amount; if(HP <= 0){ onDeath(); } iFrameTimeCounter = 0;} }
+	public void takeDMG(int amount ){ if(iFrameTimeCounter <= 0){ HP -= amount; if(HP <= 0){ onDeath(); } iFrameTimeCounter = I_FRAME_TIME;} }
 	public void takeKnockback(Vector2 amount){ force.x += amount.x * innertiaCoefficient;  force.y += amount.y *innertiaCoefficient;}
 	public void onDeath(){ if(state instanceof GameHandler) { GameHandler game = (GameHandler) state; game.entitiesToDie.add(this);}}
 	

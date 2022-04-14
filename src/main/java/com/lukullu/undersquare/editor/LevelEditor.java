@@ -67,7 +67,7 @@ public class LevelEditor extends ProgramState implements ProcessingClass {
 								curGrid.dim.x + scaleToScreenX(50),
 								curGrid.dim.y + scaleToScreenY(50)),
 					ROUNDEDCORNERS,ROUNDEDCORNERS,ROUNDEDCORNERS,ROUNDEDCORNERS,
-					"", DEFAULT_TEXT_SIZE);
+					"", DEFAULT_TEXT_SIZE, CORNER);
 
 		saveButton = new SaveMapButton(
 				new Vector2(
@@ -79,6 +79,7 @@ public class LevelEditor extends ProgramState implements ProcessingClass {
 						scaleToScreenY(40)),
 				ROUNDEDCORNERS,0,0,0,
 				DEFAULT_TEXT_SIZE,
+				CENTER,
 				this);
 		
 		loadButton = new LoadMapButton(
@@ -90,7 +91,8 @@ public class LevelEditor extends ProgramState implements ProcessingClass {
 						scaleToScreenX(200),
 						scaleToScreenY(40)),
 				0,ROUNDEDCORNERS,0,0,
-				DEFAULT_TEXT_SIZE);
+				DEFAULT_TEXT_SIZE,
+				CENTER);
 
 		backButton = new ButtonWidget(
 				new Vector2(
@@ -102,8 +104,9 @@ public class LevelEditor extends ProgramState implements ProcessingClass {
 						scaleToScreenY(40)
 				),
 				ROUNDEDCORNERS, ROUNDEDCORNERS, ROUNDEDCORNERS, ROUNDEDCORNERS,
-				" back to Main-Menu",
+				"Return to Menu",
 				DEFAULT_TEXT_SIZE,
+				CENTER,
 				() -> { UnderSquare.changeState(new MainMenu());}
 		);
 
@@ -153,7 +156,7 @@ public class LevelEditor extends ProgramState implements ProcessingClass {
 						new Vector2(scaleToScreenX(10),0),
 						new Vector2(scaleToScreenX(380),scaleToScreenY(40)),
 						ROUNDEDCORNERS,ROUNDEDCORNERS,ROUNDEDCORNERS,ROUNDEDCORNERS,
-						mapName, DEFAULT_TEXT_SIZE,
+						mapName, DEFAULT_TEXT_SIZE, CENTER,
 						() -> {
 							try {
 								UnderSquare.state.setLevel( GSON.fromJson(new FileReader(file),LevelMap.class),file);
@@ -215,7 +218,8 @@ public class LevelEditor extends ProgramState implements ProcessingClass {
 								new Vector2(scaleToScreenX(380),scaleToScreenY(30)),
 								ROUNDEDCORNERS, ROUNDEDCORNERS, ROUNDEDCORNERS, ROUNDEDCORNERS,
 								"Player Settings:",
-								DEFAULT_TEXT_SIZE
+								DEFAULT_TEXT_SIZE,
+								CORNER
 						)
 				);
 
@@ -226,6 +230,7 @@ public class LevelEditor extends ProgramState implements ProcessingClass {
 								ROUNDEDCORNERS, ROUNDEDCORNERS, ROUNDEDCORNERS, ROUNDEDCORNERS,
 								"test",
 								DEFAULT_TEXT_SIZE,
+								CENTER,
 								() -> {}
 						)
 				);
@@ -243,7 +248,7 @@ public class LevelEditor extends ProgramState implements ProcessingClass {
 								new Vector2(scaleToScreenX(380),scaleToScreenY(30)),
 								ROUNDEDCORNERS, ROUNDEDCORNERS, ROUNDEDCORNERS, ROUNDEDCORNERS,
 								"Item Settings:",
-								DEFAULT_TEXT_SIZE
+								DEFAULT_TEXT_SIZE, CORNER
 						)
 				);
 
@@ -254,6 +259,7 @@ public class LevelEditor extends ProgramState implements ProcessingClass {
 								ROUNDEDCORNERS, ROUNDEDCORNERS, ROUNDEDCORNERS, ROUNDEDCORNERS,
 								itemTypeNames[curItemIndex],
 								DEFAULT_TEXT_SIZE,
+								CENTER,
 								() -> {itemCycle(pos);}
 						)
 				);
@@ -265,7 +271,7 @@ public class LevelEditor extends ProgramState implements ProcessingClass {
 								new Vector2(scaleToScreenX(380),scaleToScreenY(30)),
 								ROUNDEDCORNERS, ROUNDEDCORNERS, ROUNDEDCORNERS, ROUNDEDCORNERS,
 								"Enemy Settings:",
-								DEFAULT_TEXT_SIZE
+								DEFAULT_TEXT_SIZE, CORNER
 						)
 				);
 
@@ -276,6 +282,7 @@ public class LevelEditor extends ProgramState implements ProcessingClass {
 								ROUNDEDCORNERS, ROUNDEDCORNERS, ROUNDEDCORNERS, ROUNDEDCORNERS,
 								enemyTypeNames[curEnemyIndex],
 								DEFAULT_TEXT_SIZE,
+								CENTER,
 								() -> {enemyCycle(pos);}
 						)
 				);
@@ -288,7 +295,7 @@ public class LevelEditor extends ProgramState implements ProcessingClass {
 								new Vector2(scaleToScreenX(380),scaleToScreenY(30)),
 								ROUNDEDCORNERS, ROUNDEDCORNERS, ROUNDEDCORNERS, ROUNDEDCORNERS,
 								"Game Settings:",
-								DEFAULT_TEXT_SIZE
+								DEFAULT_TEXT_SIZE, CORNER
 						)
 				);
 
@@ -299,6 +306,7 @@ public class LevelEditor extends ProgramState implements ProcessingClass {
 								ROUNDEDCORNERS, ROUNDEDCORNERS, ROUNDEDCORNERS, ROUNDEDCORNERS,
 								"test",
 								DEFAULT_TEXT_SIZE,
+								CENTER,
 								() -> {}
 						)
 				);

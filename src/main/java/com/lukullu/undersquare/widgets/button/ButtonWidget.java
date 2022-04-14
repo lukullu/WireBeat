@@ -15,13 +15,13 @@ public class ButtonWidget extends TextWidget implements ProcessingClass {
 	
 	public boolean reset = false;
 	
-	public ButtonWidget(Vector2 _pos, Vector2 _dim, int _cornerBL, int _cornerBR, int _cornerTL, int _cornerTR, String _text, int _textSize){
-		super(_pos, _dim, _cornerBL, _cornerBR, _cornerTL, _cornerTR, _text, _textSize);
+	public ButtonWidget(Vector2 _pos, Vector2 _dim, int _cornerBL, int _cornerBR, int _cornerTL, int _cornerTR, String _text, int _textSize, int _alignment){
+		super(_pos, _dim, _cornerBL, _cornerBR, _cornerTL, _cornerTR, _text, _textSize, _alignment);
 		onClick = () -> {};
 	}
 	
-	public ButtonWidget(Vector2 _pos, Vector2 _dim, int _cornerBL, int _cornerBR, int _cornerTL, int _cornerTR, String _text, int _textSize, Runnable _onClick){
-		super(_pos, _dim, _cornerBL, _cornerBR, _cornerTL, _cornerTR, _text, _textSize);
+	public ButtonWidget(Vector2 _pos, Vector2 _dim, int _cornerBL, int _cornerBR, int _cornerTL, int _cornerTR, String _text, int _textSize, int _alignment, Runnable _onClick){
+		super(_pos, _dim, _cornerBL, _cornerBR, _cornerTL, _cornerTR, _text, _textSize, _alignment);
 		onClick = _onClick;
 	}
 	
@@ -62,7 +62,7 @@ public class ButtonWidget extends TextWidget implements ProcessingClass {
 		noStroke();
 		rect(pos.x + _rel.x, pos.y + _rel.y, dim.x, dim.y, cornerTL, cornerTR, cornerBR, cornerBL);
 		fill(UI_TEXT_COLOR.getRGB());
-		textAlign(CENTER);
+		textAlign(alignment);
 		textSize(DEFAULT_TEXT_SIZE);
 		text(text, pos.x + _rel.x + dim.x/2, pos.y + _rel.y + dim.y/4 + DEFAULT_TEXT_SIZE);
 	}

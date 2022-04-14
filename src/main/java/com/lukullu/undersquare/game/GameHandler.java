@@ -9,6 +9,7 @@ import com.lukullu.undersquare.common.data.Vector2;
 import com.lukullu.undersquare.game.camera.Camera;
 import com.lukullu.undersquare.game.entity.Entity;
 import com.lukullu.undersquare.game.geometry.LevelGeometry;
+import com.lukullu.undersquare.menu.DeathMenu;
 import com.lukullu.undersquare.menu.PauseMenu;
 
 import java.util.ArrayList;
@@ -22,6 +23,7 @@ public class GameHandler extends ProgramState implements ProcessingClass {
 	public ArrayList<Entity> entities = new ArrayList<>();
 	public LevelMap levelMap;
 	public ArrayList<Entity> entitiesToDie = new ArrayList<>();
+	public boolean didIDie = false;
 
 	public GameHandler(LevelMap _levelMap){levelMap = _levelMap; levelMap.collisionData = IO.convertMapDataToCollisionData(levelMap.mapData);}
 
@@ -48,7 +50,7 @@ public class GameHandler extends ProgramState implements ProcessingClass {
 		killEntities();
 
 		if(KeyHandler.escape){ UnderSquare.changeState(new PauseMenu(this));}
-
+		if(didIDie){UnderSquare.changeState(new DeathMenu(this));}
 	}
 	
 	public void killEntities() {

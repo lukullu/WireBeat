@@ -30,7 +30,8 @@ public class ScrollWidget extends Widget implements ProcessingClass {
 						dim.x,
 						scaleToScreenY(80)),
 				0,0, _cornerTL, cornerTR,
-				name, 25);
+				name, 24,
+				CORNER);
 
 	}
 	
