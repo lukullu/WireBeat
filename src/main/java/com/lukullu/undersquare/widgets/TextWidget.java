@@ -11,11 +11,7 @@ public class TextWidget extends Widget implements ProcessingClass {
 	public int textSize;
 	
 	public TextWidget(Vector2 _pos, Vector2 _dim, int _cornerBL, int _cornerBR, int _cornerTL, int _cornerTR, String _text, int _textSize) {
-		super(_pos, _dim, _cornerBL, _cornerBR, _cornerTL, _cornerTR); init(_text); textSize = _textSize;
-	}
-	
-	public void init(String _text) {
-		text = _text;
+		super(_pos, _dim, _cornerBL, _cornerBR, _cornerTL, _cornerTR, UI_CONTRAST_COLOR);  textSize = _textSize; text = _text;
 	}
 	
 	@Override

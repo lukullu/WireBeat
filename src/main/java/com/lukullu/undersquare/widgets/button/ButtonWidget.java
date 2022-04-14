@@ -1,6 +1,7 @@
 package com.lukullu.undersquare.widgets.button;
 
 import com.kilix.processing.ProcessingClass;
+import com.lukullu.undersquare.UnderSquare;
 import com.lukullu.undersquare.common.data.Vector2;
 import com.lukullu.undersquare.widgets.TextWidget;
 
@@ -34,7 +35,7 @@ public class ButtonWidget extends TextWidget implements ProcessingClass {
 			buttonState = ButtonState.IDLE;
 		}
 		
-		if(buttonState == ButtonState.HOVER && getMousePressed() && getMouseButton() == LEFT && !reset){
+		if(buttonState == ButtonState.HOVER && getMousePressed() && getMouseButton() == LEFT && !reset && UnderSquare.timeSinceLastClick >= CLICK_DELAY){
 			buttonState = ButtonState.CLICKED;
 			reset = true;
 			onClick();

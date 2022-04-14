@@ -17,6 +17,8 @@ public class UnderSquare extends ExtendedPApplet {
 	public static UnderSquare INSTANCE;
 	public static float deltaTime = 0;
 	public static float lastFrameTime = 0;
+
+	public static float timeSinceLastClick = 0;
 	
 	public UnderSquare() { INSTANCE = this; }
 	
@@ -28,9 +30,15 @@ public class UnderSquare extends ExtendedPApplet {
 	}
 	
 	public void draw() {
+
+		calcDeltaTime();
+
 		state.update();
 		Debug.displayTemp(String.format("fps: %03d | dt: %dms", Math.round(frameRate), Math.round(deltaTime * 1000)));
 		state.paint();
+
+		timeSinceLastClick+=deltaTime;
+		if(mousePressed){ timeSinceLastClick = 0;}
 	}
 	
 	public void calcDeltaTime() {
@@ -71,6 +79,11 @@ public class UnderSquare extends ExtendedPApplet {
 	public static void changeState(ProgramState _state){
 		state = _state;
 		state.init();
+	}
+
+	public static void changeStateWithoutInit(ProgramState _state){
+		state = _state;
+		state.update();
 	}
 	
 	

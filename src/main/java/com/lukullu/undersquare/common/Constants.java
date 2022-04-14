@@ -17,7 +17,10 @@ public class Constants {
 
 	// TODO before handover: WTH is this:
 	public static final Vector2 ZERO_VECTOR_2 = new Vector2(0, 0);
-	
+
+	//UX
+	public static final float CLICK_DELAY = 0.1f;
+
 	//entities
 	public static final float appliedForce = 45000f;
 	public static final float appliedShiftForce = 15000f;

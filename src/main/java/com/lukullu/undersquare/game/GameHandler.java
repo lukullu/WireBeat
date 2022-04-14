@@ -3,11 +3,13 @@ package com.lukullu.undersquare.game;
 import com.kilix.processing.ProcessingClass;
 import com.lukullu.undersquare.UnderSquare;
 import com.lukullu.undersquare.common.IO;
+import com.lukullu.undersquare.common.KeyHandler;
 import com.lukullu.undersquare.common.ProgramState;
 import com.lukullu.undersquare.common.data.Vector2;
 import com.lukullu.undersquare.game.camera.Camera;
 import com.lukullu.undersquare.game.entity.Entity;
 import com.lukullu.undersquare.game.geometry.LevelGeometry;
+import com.lukullu.undersquare.menu.PauseMenu;
 
 import java.util.ArrayList;
 
@@ -24,7 +26,8 @@ public class GameHandler extends ProgramState implements ProcessingClass {
 	public GameHandler(LevelMap _levelMap){levelMap = _levelMap; levelMap.collisionData = IO.convertMapDataToCollisionData(levelMap.mapData);}
 
 	public void init() {
-		
+
+		UnderSquare.INSTANCE.noCursor();
 		cam = new Camera(new Vector2(scaleToScreenX((int)cameraPosition.x),scaleToScreenY((int)cameraPosition.y)),new Vector2(scaleToScreenX((int)cameraDimensions.x),scaleToScreenY((int)cameraDimensions.y)));
 		mapGeometry = IO.createMapElements(levelMap.mapData,IO.convertMapDataToCollisionData(levelMap.mapData), levelMap);
 		
@@ -33,8 +36,6 @@ public class GameHandler extends ProgramState implements ProcessingClass {
 	
 	
 	public void update() {
-		
-		UnderSquare.INSTANCE.calcDeltaTime();
 		
 		for(int i = 0; i < entities.size(); i++){
 			entities.get(i).update();
@@ -45,7 +46,9 @@ public class GameHandler extends ProgramState implements ProcessingClass {
 		}
 		
 		killEntities();
-		
+
+		if(KeyHandler.escape){ UnderSquare.changeState(new PauseMenu(this));}
+
 	}
 	
 	public void killEntities() {

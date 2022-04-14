@@ -30,11 +30,13 @@ public class MainMenu extends ProgramState implements ProcessingClass {
     public Widget tempTitleScreen;
     public Widget loadButton;
     public Widget editorButton;
+    public Widget exitButton;
     public ScrollWidget fileList = new ScrollWidget(ZERO_VECTOR_2, ZERO_VECTOR_2,ROUNDEDCORNERS,ROUNDEDCORNERS,ROUNDEDCORNERS,ROUNDEDCORNERS,"Maps:");
 
     @Override
     public void init(){
 
+        UnderSquare.INSTANCE.cursor(ARROW);
         initWidgets();
         displayFiles(IO.collectFiles());
     }
@@ -86,9 +88,22 @@ public class MainMenu extends ProgramState implements ProcessingClass {
                         scaleToScreenX(1000),
                         scaleToScreenY(140)),
                 ROUNDEDCORNERS,ROUNDEDCORNERS,ROUNDEDCORNERS,ROUNDEDCORNERS,
-                "UNDERSQUARE", 110);
+                "UnderSquare", 110);
 
-
+        exitButton = new ButtonWidget(
+                new Vector2(
+                        scaleToScreenX(1480),
+                        scaleToScreenY(1010)
+                ),
+                new Vector2(
+                        scaleToScreenX(200),
+                        scaleToScreenY(40)
+                ),
+                ROUNDEDCORNERS, ROUNDEDCORNERS, ROUNDEDCORNERS, ROUNDEDCORNERS,
+                "Exit Game",
+                DEFAULT_TEXT_SIZE,
+                () -> { UnderSquare.INSTANCE.exit();}
+        );
     }
 
     public void displayFiles(Map<String, File> files){
@@ -117,6 +132,7 @@ public class MainMenu extends ProgramState implements ProcessingClass {
         loadButton.update();
         editorButton.update();
         fileList.update();
+        exitButton.update();
 
     }
     @Override
@@ -126,6 +142,7 @@ public class MainMenu extends ProgramState implements ProcessingClass {
         editorButton.paint();
         fileList.paint();
         tempTitleScreen.paint();
+        exitButton.paint();
 
     }
 

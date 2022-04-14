@@ -15,7 +15,10 @@ import static com.lukullu.undersquare.common.Constants.*;
 import static com.lukullu.undersquare.common.msc.Translation.*;
 
 public class ScrollWidget extends Widget implements ProcessingClass {
-	
+
+	public static final int LINE_DISTANCE = 2;
+	public Widget LINE_PARTER = new Widget(new Vector2(dim.x/10f, 0),new Vector2(dim.x - dim.x/5,scaleToScreenY(2)),ROUNDEDCORNERS,ROUNDEDCORNERS,ROUNDEDCORNERS,ROUNDEDCORNERS,UI_FOCUS_COLOR);
+
 	public ArrayList<Widget> widgets = new ArrayList<>();
 	public Widget title;
 	String name = "";
@@ -24,7 +27,7 @@ public class ScrollWidget extends Widget implements ProcessingClass {
 	
 	public ScrollWidget(Vector2 _pos, Vector2 _dim, int _cornerBL, int _cornerBR, int _cornerTL, int _cornerTR, String _name) {
 
-		super(_pos, _dim, _cornerBL, _cornerBR, _cornerTL, _cornerTR);
+		super(_pos, _dim, _cornerBL, _cornerBR, _cornerTL, _cornerTR, UI_CONTRAST_COLOR);
 		name = _name;
 
 		title = new TextWidget(
@@ -38,7 +41,7 @@ public class ScrollWidget extends Widget implements ProcessingClass {
 	}
 	
 	// add/remove widgets to/from the list
-	public void addWidget(Widget _toAdd)       { widgets.add(_toAdd); }
+	public void addWidget(Widget _toAdd)       { widgets.add(LINE_PARTER); widgets.add(_toAdd); }
 	public void removeWidget(Widget _toRemove) { widgets.remove(_toRemove); }
 	public void removeWidget(int _index)       { widgets.remove(_index); }
 	public void clearWidgets() { widgets = new ArrayList<>();}
@@ -54,7 +57,7 @@ public class ScrollWidget extends Widget implements ProcessingClass {
 			Widget cur = widgets.get(i);
 
 			// top overflow
-			if (scrollPosition > contentHeight) { contentHeight += cur.dim.y + scaleToScreenY(10); continue; }
+			if (scrollPosition > contentHeight) { contentHeight += cur.dim.y + scaleToScreenY(LINE_DISTANCE); continue; }
 			// bottom overflow
 			if (contentHeight + scaleToScreenY(10) + cur.dim.y > dim.y + title.dim.y) break;
 			
@@ -84,7 +87,7 @@ public class ScrollWidget extends Widget implements ProcessingClass {
 			
 			Widget cur = widgets.get(i);
 			
-			if (scrollPosition > contentHeight) { contentHeight += cur.dim.y + scaleToScreenY(10); continue; }
+			if (scrollPosition > contentHeight) { contentHeight += cur.dim.y + scaleToScreenY(LINE_DISTANCE); continue; }
 			
 			if (contentHeight + scaleToScreenY(10) - scrollPosition > dim.y - title.dim.y) break;
 			

@@ -12,12 +12,13 @@ public class KeyHandler implements ProcessingClass {
 	public static boolean e;
 	public static boolean q;
 	
-	public static boolean shift = false;
-	public static boolean ctrl  = false;
-	public static boolean up    = false;
-	public static boolean down  = false;
-	public static boolean left  = false;
-	public static boolean right = false;
+	public static boolean shift  = false;
+	public static boolean ctrl   = false;
+	public static boolean up     = false;
+	public static boolean down   = false;
+	public static boolean left   = false;
+	public static boolean right  = false;
+	public static boolean escape = false;
 	
 	public static char lastPressedKey;
 	
@@ -32,12 +33,13 @@ public class KeyHandler implements ProcessingClass {
 		e = checkKeyPressed("e");
 		q = checkKeyPressed("q");
 		
-		shift = checkKeyCodePressed(SHIFT);
-		up    = checkKeyCodePressed(UP);
-		down  = checkKeyCodePressed(DOWN);
-		left  = checkKeyCodePressed(LEFT);
-		right = checkKeyCodePressed(RIGHT);
-		ctrl  = checkKeyCodePressed(CONTROL);
+		shift  = checkKeyCodePressed(SHIFT);
+		up     = checkKeyCodePressed(UP);
+		down   = checkKeyCodePressed(DOWN);
+		left   = checkKeyCodePressed(LEFT);
+		right  = checkKeyCodePressed(RIGHT);
+		ctrl   = checkKeyCodePressed(CONTROL);
+		escape = checkKeyCodePressed(ESC);
 		
 	}
 	
@@ -50,12 +52,13 @@ public class KeyHandler implements ProcessingClass {
 		e = checkKeyReleased("e");
 		q = checkKeyReleased("q");
 		
-		shift = checkKeyCodeReleased(SHIFT);
-		up    = checkKeyCodeReleased(UP);
-		down  = checkKeyCodeReleased(DOWN);
-		left  = checkKeyCodeReleased(LEFT);
-		right = checkKeyCodeReleased(RIGHT);
-		ctrl = checkKeyCodeReleased(CONTROL);
+		shift  = checkKeyCodeReleased(SHIFT);
+		up     = checkKeyCodeReleased(UP);
+		down   = checkKeyCodeReleased(DOWN);
+		left   = checkKeyCodeReleased(LEFT);
+		right  = checkKeyCodeReleased(RIGHT);
+		ctrl   = checkKeyCodeReleased(CONTROL);
+		escape = checkKeyCodeReleased(ESC);
 		
 	}
 	
@@ -83,8 +86,12 @@ public class KeyHandler implements ProcessingClass {
 			case LEFT    -> left;
 			case RIGHT   -> right;
 			case CONTROL -> ctrl;
+			case ESC     -> escape;
 			default -> old;
 		};
+
+		UnderSquare.INSTANCE.key = 0;
+
 		return UnderSquare.INSTANCE.keyCode == keyName || old;
 	}
 	
@@ -112,6 +119,7 @@ public class KeyHandler implements ProcessingClass {
 			case LEFT    -> left;
 			case RIGHT   -> right;
 			case CONTROL -> ctrl;
+			case ESC     -> escape;
 			default -> old;
 		};
 		return UnderSquare.INSTANCE.keyCode != keyName && old;

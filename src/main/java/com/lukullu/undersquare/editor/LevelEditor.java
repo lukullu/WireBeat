@@ -49,7 +49,8 @@ public class LevelEditor extends ProgramState implements ProcessingClass {
 
 	@Override
 	public void init() {
-		
+
+		UnderSquare.INSTANCE.cursor(ARROW);
 		setLevel(null,null);
 		curGrid = new Grid(new Vector2(scaleToScreenX(950),scaleToScreenY(950)),32,mapToBeLoaded, fileToBeLoaded);
 		initWidgets();
