@@ -9,6 +9,7 @@ import com.lukullu.undersquare.common.ProgramState;
 import com.lukullu.undersquare.common.data.Vector2;
 import com.lukullu.undersquare.common.msc.Debug;
 import com.lukullu.undersquare.game.LevelMap;
+import com.lukullu.undersquare.menu.MainMenu;
 import com.lukullu.undersquare.widgets.*;
 import com.lukullu.undersquare.widgets.button.ButtonWidget;
 import com.lukullu.undersquare.widgets.button.LoadMapButton;
@@ -34,6 +35,7 @@ public class LevelEditor extends ProgramState implements ProcessingClass {
 	public Widget gridBackDrop;
 	public ListWidget tileSettings;
 	public ListWidget legend;
+	public Widget backButton;
 	public ScrollWidget fileList = new ScrollWidget(ZERO_VECTOR_2, ZERO_VECTOR_2,ROUNDEDCORNERS,ROUNDEDCORNERS,ROUNDEDCORNERS,ROUNDEDCORNERS,"Maps:");
 	
 	public LevelMap mapToBeLoaded;
@@ -91,8 +93,22 @@ public class LevelEditor extends ProgramState implements ProcessingClass {
 						scaleToScreenY(40)),
 				0,ROUNDEDCORNERS,0,0,
 				DEFAULT_TEXT_SIZE);
-		
-		
+
+		backButton = new ButtonWidget(
+				new Vector2(
+						scaleToScreenX(30),
+						scaleToScreenY(30)
+				),
+				new Vector2(
+						scaleToScreenX(200),
+						scaleToScreenY(40)
+				),
+				ROUNDEDCORNERS, ROUNDEDCORNERS, ROUNDEDCORNERS, ROUNDEDCORNERS,
+				" back to Main-Menu",
+				DEFAULT_TEXT_SIZE,
+				() -> { UnderSquare.changeState(new MainMenu());}
+		);
+
 		fileList = new ScrollWidget(
 				new Vector2(
 						scaleToScreenX(30),
@@ -157,6 +173,7 @@ public class LevelEditor extends ProgramState implements ProcessingClass {
 		curGrid.update();
 		saveButton.update();
 		loadButton.update();
+		backButton.update();
 		fileList.update();
 		tileSettings.update();
 		legend.update();
@@ -169,6 +186,7 @@ public class LevelEditor extends ProgramState implements ProcessingClass {
 
 		gridBackDrop.paint();
 		curGrid.paint();
+		backButton.paint();
 		fileList.paint(ZERO_VECTOR_2);
 		saveButton.paint(ZERO_VECTOR_2);
 		loadButton.paint(ZERO_VECTOR_2);

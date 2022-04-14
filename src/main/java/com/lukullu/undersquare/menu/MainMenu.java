@@ -5,6 +5,7 @@ import com.lukullu.undersquare.UnderSquare;
 import com.lukullu.undersquare.common.IO;
 import com.lukullu.undersquare.common.ProgramState;
 import com.lukullu.undersquare.common.data.Vector2;
+import com.lukullu.undersquare.editor.LevelEditor;
 import com.lukullu.undersquare.game.LevelMap;
 import com.lukullu.undersquare.widgets.ScrollWidget;
 import com.lukullu.undersquare.widgets.TextWidget;
@@ -28,6 +29,7 @@ public class MainMenu extends ProgramState implements ProcessingClass {
 
     public Widget tempTitleScreen;
     public Widget loadButton;
+    public Widget editorButton;
     public ScrollWidget fileList = new ScrollWidget(ZERO_VECTOR_2, ZERO_VECTOR_2,ROUNDEDCORNERS,ROUNDEDCORNERS,ROUNDEDCORNERS,ROUNDEDCORNERS,"Maps:");
 
     @Override
@@ -49,6 +51,21 @@ public class MainMenu extends ProgramState implements ProcessingClass {
                         scaleToScreenY(40)),
                 ROUNDEDCORNERS,ROUNDEDCORNERS,0,0,
                 DEFAULT_TEXT_SIZE);
+
+        editorButton = new ButtonWidget(
+                new Vector2(
+                        scaleToScreenX(1690),
+                        scaleToScreenY(1010)
+                ),
+                new Vector2(
+                        scaleToScreenX(200),
+                        scaleToScreenY(40)
+                ),
+                ROUNDEDCORNERS, ROUNDEDCORNERS, ROUNDEDCORNERS, ROUNDEDCORNERS,
+                "Level Editor",
+                DEFAULT_TEXT_SIZE,
+                () -> { UnderSquare.changeState(new LevelEditor());}
+        );
 
         fileList = new ScrollWidget(
                 new Vector2(
@@ -98,6 +115,7 @@ public class MainMenu extends ProgramState implements ProcessingClass {
         background(UI_BACKGROUND_COLOR.getRGB());
 
         loadButton.update();
+        editorButton.update();
         fileList.update();
 
     }
@@ -105,6 +123,7 @@ public class MainMenu extends ProgramState implements ProcessingClass {
     public void paint() {
 
         loadButton.paint();
+        editorButton.paint();
         fileList.paint();
         tempTitleScreen.paint();
 

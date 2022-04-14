@@ -22,7 +22,7 @@ public class Shell extends Projectile implements ProcessingClass {
 		float pelletSpreadForce = (force.x + force.y)/6f;
 
 		for(int i = 0; i < Math.round(random(4,10)); i++){
-			UnderSquare.getGameHandler().entities.add(new Bullet(_pos, _dim, new Vector2(_initForce.x + pelletSpreadForce * random(-1,1),_initForce.y + pelletSpreadForce * random(-1,1)), _dmg, _ttl, _mass, _inertiaCoefficient, _origin));
+			UnderSquare.getGameHandler().entities.add(new Projectile(_pos, _dim, new Vector2(_initForce.x + pelletSpreadForce * random(-1,1),_initForce.y + pelletSpreadForce * random(-1,1)), _dmg, _ttl, _mass, _inertiaCoefficient, _origin));
 		}
 	}
 	

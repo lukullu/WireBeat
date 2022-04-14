@@ -90,8 +90,8 @@ public class Constants {
 	public static final float scrollScale = 10;
 	
 	//camera
-	public static Vector2 cameraPosition = new Vector2(600,300);
-	public static Vector2 cameraDimensions = new Vector2(720,480);
+	public static Vector2 cameraPosition = new Vector2(680,405);
+	public static Vector2 cameraDimensions = new Vector2(480,270); //720 : 480
 
 	public static final String[] enemyTypeNames =
 			{
@@ -114,6 +114,7 @@ public class Constants {
 	
 	//Pellets
 	public static final int pelletSpreadForce = 100000;
+	public static final int bulletSpreadForce = 50000;
 	
 	//projectile constructions
 	public static final ProjectileConstructor bulletConstruction = Bullet::new;

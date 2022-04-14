@@ -60,7 +60,8 @@ public class Player extends Entity {
 		
 		force = new Vector2(fx == 0 ? force.x : force.x + fx, fy == 0 ? force.y : force.y + fy);
 
-		if(KeyHandler.shift && dashDelay >= PLAYER_DASH_DELAY){ force = new Vector2(force.x * DASH_ACCELERATION, force.y * DASH_ACCELERATION); dashDelay = 0;}
+		//dash
+		if(KeyHandler.shift && dashDelay >= PLAYER_DASH_DELAY){ force = new Vector2(force.x * DASH_ACCELERATION, force.y * DASH_ACCELERATION); dashDelay = 0; iFrameTimeCounter = 0;}
 
 		if(weapon != null){
 			if(timeSinceLastShot > 1/weapon.fireRate){

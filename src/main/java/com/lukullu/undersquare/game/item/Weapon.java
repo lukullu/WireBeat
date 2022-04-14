@@ -15,7 +15,7 @@ public class Weapon extends Item {
 	public static final Weapon PISTOL          = new Weapon("Pistol",          Color.gray, bulletConstruction, new Vector2(5,10),4, new Vector2(600000,600000), new Vector2(40000,40000  ), 3  , 20, 10, 0.25f);
 	public static final Weapon MACHINEGUN      = new Weapon("Machinegun",      Color.gray, bulletConstruction, new Vector2(5,10),2, new Vector2(600000,600000), new Vector2(40000,40000  ), 10 , 20, 10, 0.25f);
 	public static final Weapon SHOTGUN         = new Weapon("Shotgun",         Color.gray, shellConstruction,  new Vector2(5,10),2, new Vector2(600000,600000), new Vector2(400000,400000), 1  , 20, 10, 0.25f);
-	public static final Weapon FLAMETHROWER    = new Weapon("Flamethrower",    Color.gray, shellConstruction,  new Vector2(5,5 ),1, new Vector2(6000 ,6000), new Vector2(1000  ,1000  ), 100, 0.3f,0.1f , 0.005f);
+	public static final Weapon FLAMETHROWER    = new Weapon("Flamethrower",    Color.gray, shellConstruction,  new Vector2(5,5 ),1, new Vector2(12000  ,12000  ), new Vector2(1000  ,1000  ), 100, 0.3f,0.2f , 0.005f);
 	public static final Weapon QUADSHOT        = new Weapon("QuadShot",        Color.gray, quadConstruction,   new Vector2(5,5 ),4, new Vector2(600000,600000), ZERO_VECTOR_2, 3, 20, 10, 0.25f);
 
 	public float fireRate;
