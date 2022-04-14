@@ -1,18 +1,12 @@
 package com.lukullu.undersquare.widgets;
 
 import com.kilix.processing.ProcessingClass;
-import com.lukullu.undersquare.common.IO;
-import com.lukullu.undersquare.UnderSquare;
 import com.lukullu.undersquare.common.data.Vector2;
-import com.lukullu.undersquare.editor.LevelEditor;
-import com.lukullu.undersquare.widgets.button.ButtonWidget;
 
-import java.io.File;
 import java.util.ArrayList;
-import java.util.Map;
 
 import static com.lukullu.undersquare.common.Constants.*;
-import static com.lukullu.undersquare.common.msc.Translation.*;
+import static com.lukullu.undersquare.common.msc.Translation.scaleToScreenY;
 
 public class ScrollWidget extends Widget implements ProcessingClass {
 

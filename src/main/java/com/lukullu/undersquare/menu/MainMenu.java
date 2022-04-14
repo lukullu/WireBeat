@@ -12,7 +12,6 @@ import com.lukullu.undersquare.widgets.TextWidget;
 import com.lukullu.undersquare.widgets.Widget;
 import com.lukullu.undersquare.widgets.button.ButtonWidget;
 import com.lukullu.undersquare.widgets.button.LoadMapButton;
-import com.lukullu.undersquare.widgets.button.SaveMapButton;
 
 import java.io.File;
 import java.io.FileNotFoundException;

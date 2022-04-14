@@ -6,7 +6,6 @@ import com.lukullu.undersquare.common.data.Vector2;
 import com.lukullu.undersquare.widgets.TextWidget;
 
 import static com.lukullu.undersquare.common.Constants.*;
-import static com.lukullu.undersquare.common.Constants.textColor;
 import static com.lukullu.undersquare.common.collision.Collision.pointRectangleCollision;
 
 public class ButtonWidget extends TextWidget implements ProcessingClass {

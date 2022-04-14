@@ -8,9 +8,6 @@ import com.lukullu.undersquare.common.msc.Debug;
 import com.lukullu.undersquare.common.msc.Filter;
 import com.lukullu.undersquare.game.entity.Entity;
 import com.lukullu.undersquare.game.item.Weapon;
-import com.lukullu.undersquare.menu.MainMenu;
-
-import java.security.Key;
 
 import static com.lukullu.undersquare.UnderSquare.deltaTime;
 import static com.lukullu.undersquare.common.Constants.*;

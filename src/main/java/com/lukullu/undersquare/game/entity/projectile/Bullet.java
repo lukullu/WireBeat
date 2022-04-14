@@ -5,7 +5,6 @@ import com.lukullu.undersquare.common.data.Vector2;
 import com.lukullu.undersquare.game.entity.Entity;
 
 import static com.lukullu.undersquare.common.Constants.bulletSpreadForce;
-import static com.lukullu.undersquare.common.Constants.pelletSpreadForce;
 
 public class Bullet extends Projectile implements ProcessingClass{
 	

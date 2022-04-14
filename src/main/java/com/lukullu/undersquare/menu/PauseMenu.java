@@ -4,7 +4,6 @@ import com.kilix.processing.ProcessingClass;
 import com.lukullu.undersquare.UnderSquare;
 import com.lukullu.undersquare.common.ProgramState;
 import com.lukullu.undersquare.common.data.Vector2;
-import com.lukullu.undersquare.editor.LevelEditor;
 import com.lukullu.undersquare.widgets.Widget;
 import com.lukullu.undersquare.widgets.button.ButtonWidget;
 

@@ -1,21 +1,18 @@
 package com.lukullu.undersquare.game.entity;
 
 import com.kilix.processing.ProcessingClass;
-import com.lukullu.undersquare.UnderSquare;
 import com.lukullu.undersquare.common.Constants;
 import com.lukullu.undersquare.common.data.Direction;
 import com.lukullu.undersquare.common.data.Vector2;
-import com.lukullu.undersquare.common.msc.Debug;
-import com.lukullu.undersquare.common.msc.Filter;
 import com.lukullu.undersquare.game.GameHandler;
-import com.lukullu.undersquare.game.entity.player.Player;
 import com.lukullu.undersquare.game.entity.projectile.Projectile;
 import com.lukullu.undersquare.game.item.Weapon;
 
 import java.awt.*;
 import java.util.ArrayList;
 
-import static com.lukullu.undersquare.UnderSquare.*;
+import static com.lukullu.undersquare.UnderSquare.deltaTime;
+import static com.lukullu.undersquare.UnderSquare.state;
 import static com.lukullu.undersquare.common.Constants.*;
 import static com.lukullu.undersquare.common.collision.Collision.*;
 

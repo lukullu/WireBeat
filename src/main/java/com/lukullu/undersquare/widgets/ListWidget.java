@@ -4,9 +4,7 @@ import com.kilix.processing.ProcessingClass;
 import com.lukullu.undersquare.common.data.Vector2;
 
 import java.util.ArrayList;
-import java.util.Vector;
 
-import static com.lukullu.undersquare.common.Constants.ROUNDEDCORNERS;
 import static com.lukullu.undersquare.common.Constants.UI_CONTRAST_COLOR;
 import static com.lukullu.undersquare.common.msc.Translation.scaleToScreenY;
 

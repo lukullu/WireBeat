@@ -1,10 +1,7 @@
 package com.lukullu.undersquare.common;
 
-import com.lukullu.undersquare.editor.LevelEditor;
-import com.lukullu.undersquare.game.GameHandler;
 import com.lukullu.undersquare.game.LevelMap;
 import com.lukullu.undersquare.game.camera.Camera;
-import com.lukullu.undersquare.menu.MainMenu;
 
 import java.io.File;
 

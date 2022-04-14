@@ -3,11 +3,9 @@ package com.lukullu.undersquare.game.entity.enemy;
 import com.kilix.processing.ProcessingClass;
 import com.lukullu.undersquare.common.data.Direction;
 import com.lukullu.undersquare.common.data.Vector2;
-import com.lukullu.undersquare.common.msc.Filter;
 import com.lukullu.undersquare.game.entity.projectile.Projectile;
 
 import static com.lukullu.undersquare.common.Constants.*;
-import static com.lukullu.undersquare.common.collision.Collision.*;
 
 public class Bouncer extends Enemy implements ProcessingClass {
 

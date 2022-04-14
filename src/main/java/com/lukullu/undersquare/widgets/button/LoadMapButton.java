@@ -8,11 +8,8 @@ import com.lukullu.undersquare.game.GameHandler;
 import com.lukullu.undersquare.menu.MainMenu;
 import com.lukullu.undersquare.widgets.Grid;
 
-import java.io.BufferedReader;
-import java.util.List;
-
-import static com.lukullu.undersquare.common.IO.*;
 import static com.lukullu.undersquare.common.Constants.*;
+import static com.lukullu.undersquare.common.IO.getItemPositionsfromIndices;
 import static com.lukullu.undersquare.common.msc.Translation.scaleToScreenX;
 import static com.lukullu.undersquare.common.msc.Translation.scaleToScreenY;
 

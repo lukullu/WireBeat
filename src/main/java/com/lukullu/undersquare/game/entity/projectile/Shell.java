@@ -5,8 +5,6 @@ import com.lukullu.undersquare.UnderSquare;
 import com.lukullu.undersquare.common.data.Vector2;
 import com.lukullu.undersquare.game.entity.Entity;
 
-import static com.lukullu.undersquare.common.Constants.*;
-
 public class Shell extends Projectile implements ProcessingClass {
 	
 	public Shell(Vector2 _pos, Vector2 _dim, Vector2 _initForce, int _dmg, float _ttl, float _mass, float _inertiaCoefficient, Entity _origin){

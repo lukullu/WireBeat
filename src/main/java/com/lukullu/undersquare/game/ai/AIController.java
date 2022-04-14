@@ -1,15 +1,14 @@
 package com.lukullu.undersquare.game.ai;
 
 import com.lukullu.undersquare.UnderSquare;
-import com.lukullu.undersquare.common.ProgramState;
 import com.lukullu.undersquare.common.statemashine.State;
 import com.lukullu.undersquare.common.statemashine.StateMashine;
 import com.lukullu.undersquare.game.GameHandler;
 import com.lukullu.undersquare.game.entity.Entity;
 import com.lukullu.undersquare.game.entity.player.Player;
 
-import static com.lukullu.undersquare.UnderSquare.*;
-import static com.lukullu.undersquare.common.Constants.*;
+import static com.lukullu.undersquare.UnderSquare.deltaTime;
+import static com.lukullu.undersquare.common.Constants.timeUntilNextBehaviorUpdate;
 
 
 public abstract class AIController {

@@ -2,12 +2,10 @@ package com.lukullu.undersquare.editor;
 
 import com.kilix.processing.ProcessingClass;
 import com.lukullu.undersquare.UnderSquare;
-import com.lukullu.undersquare.common.Constants;
 import com.lukullu.undersquare.common.IO;
 import com.lukullu.undersquare.common.KeyHandler;
 import com.lukullu.undersquare.common.ProgramState;
 import com.lukullu.undersquare.common.data.Vector2;
-import com.lukullu.undersquare.common.msc.Debug;
 import com.lukullu.undersquare.game.LevelMap;
 import com.lukullu.undersquare.menu.MainMenu;
 import com.lukullu.undersquare.widgets.*;
@@ -21,11 +19,10 @@ import java.io.FileReader;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
-import java.util.Vector;
 
 import static com.lukullu.undersquare.common.Constants.*;
-import static com.lukullu.undersquare.common.msc.Translation.*;
-import static java.lang.Math.round;
+import static com.lukullu.undersquare.common.msc.Translation.scaleToScreenX;
+import static com.lukullu.undersquare.common.msc.Translation.scaleToScreenY;
 
 public class LevelEditor extends ProgramState implements ProcessingClass {
 	

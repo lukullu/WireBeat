@@ -6,8 +6,6 @@ import com.lukullu.undersquare.common.IO;
 import com.lukullu.undersquare.common.data.Vector2;
 import com.lukullu.undersquare.editor.LevelEditor;
 
-import java.io.PrintWriter;
-
 import static com.lukullu.undersquare.common.Constants.*;
 
 public class SaveMapButton extends ButtonWidget implements ProcessingClass {

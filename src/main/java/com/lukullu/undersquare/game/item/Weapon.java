@@ -1,6 +1,5 @@
 package com.lukullu.undersquare.game.item;
 
-import com.lukullu.undersquare.UnderSquare;
 import com.lukullu.undersquare.common.data.Vector2;
 import com.lukullu.undersquare.game.entity.player.Player;
 import com.lukullu.undersquare.game.entity.projectile.ProjectileConstructor;
