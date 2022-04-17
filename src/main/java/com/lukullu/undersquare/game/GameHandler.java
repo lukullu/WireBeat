@@ -8,6 +8,8 @@ import com.lukullu.undersquare.common.ProgramState;
 import com.lukullu.undersquare.common.data.Vector2;
 import com.lukullu.undersquare.game.camera.Camera;
 import com.lukullu.undersquare.game.entity.Entity;
+import com.lukullu.undersquare.game.entity.enemy.Enemy;
+import com.lukullu.undersquare.game.entity.player.Player;
 import com.lukullu.undersquare.game.geometry.LevelGeometry;
 import com.lukullu.undersquare.menu.DeathMenu;
 import com.lukullu.undersquare.menu.PauseMenu;
@@ -74,6 +76,10 @@ public class GameHandler extends ProgramState implements ProcessingClass {
 		for(int i = 0; i < entities.size(); i++){
 			entities.get(i).paintAfterImages();
 			entities.get(i).paint(entities.get(i).pos,255, true);
+
+			//healthbars
+			if(entities.get(i) instanceof Player){ entities.get(i).paintHealthBar(); }
+			if(entities.get(i) instanceof Enemy) { entities.get(i).paintHealthBar(); }
 		}
 		
 		cam.paintHUD();

@@ -15,7 +15,8 @@ public class Bouncer extends Enemy implements ProcessingClass {
 		super(_pos, _dim);
 		initForce = new Vector2(bouncerStartingForce.x * random(0.3, 1), bouncerStartingForce.y * random(0.3, 1));
 		force = initForce;
-		HP = bouncerHP;
+		startingHP = bouncerHP;
+		HP = startingHP;
 		dmg = bouncerContactDMG;
 	}
 

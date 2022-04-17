@@ -20,7 +20,9 @@ public class Entity implements ProcessingClass {
 	
 	public boolean isActive = false;
 	public boolean isVisible = false;
-	
+
+	public int startingHP = 1;
+
 	public int HP = 1;
 	public int dmg;
 	
@@ -50,7 +52,8 @@ public class Entity implements ProcessingClass {
 		isVisible = true;
 		pos  = _pos;
 		dim  = _dim;
-		
+		HP = startingHP;
+
 	}
 	
 	public void update(){
@@ -91,7 +94,11 @@ public class Entity implements ProcessingClass {
 	public void takeDMG(int amount ){ if(iFrameTimeCounter <= 0){ HP -= amount; if(HP <= 0){ onDeath(); } iFrameTimeCounter = I_FRAME_TIME;} }
 	public void takeKnockback(Vector2 amount){ force.x += amount.x * innertiaCoefficient;  force.y += amount.y *innertiaCoefficient;}
 	public void onDeath(){ if(state instanceof GameHandler) { GameHandler game = (GameHandler) state; game.entitiesToDie.add(this);}}
-	
+
+	public void restoreHP(int amount){
+		if( HP + amount > startingHP*2){ HP = startingHP*2;} else HP+= amount;
+	}
+
 	public void entityCollide() {
 		entityColliders = entityCollision(this);
 		if(entityColliders.size() > 0){ collide(); }
@@ -139,11 +146,26 @@ public class Entity implements ProcessingClass {
 		if (stroke) stroke(1); else noStroke();
 		fill(c.getRGB(),opacity);
 		rect(_pos.x,_pos.y,dim.x,dim.y);
-		
 	}
 	
 	public void fireWeapon(Entity origin, Weapon weapon, Direction dir) {}
 	
-	
+	public void paintHealthBar(){
+
+		Vector2 hbPos = new Vector2(
+				pos.x + dim.x/2f - HEALTH_BAR_WIDTH/2f,
+				pos.y - HEALTH_BAR_HEIGHT * 2
+		);
+
+		rect(hbPos.x,hbPos.y, HEALTH_BAR_WIDTH, HEALTH_BAR_HEIGHT, 3,3,3,3);
+
+		fill(HP_BAR_HEALTH_COLOR.getRGB());
+		rect(hbPos.x,hbPos.y, Math.min((HEALTH_BAR_WIDTH / startingHP) * HP,HEALTH_BAR_WIDTH),HEALTH_BAR_HEIGHT, 3,3,3,3);
+
+		if(HP - startingHP > 0) {
+			fill(HP_BAR_OVERSHOOT_COLOR.getRGB());
+			rect(hbPos.x, hbPos.y, Math.min((HEALTH_BAR_WIDTH / startingHP) * (HP - startingHP), HEALTH_BAR_WIDTH), HEALTH_BAR_HEIGHT, 3, 3, 3, 3);
+		}
+	}
 	
 }

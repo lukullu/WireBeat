@@ -14,6 +14,6 @@ public class Potion extends Item{
     public Potion(String _name, Color _color, int _healthHealed){ super(_name, _color); healthHealed = _healthHealed; }
 
     @Override
-    public void onGet(Player target){ target.HP += healthHealed; }
+    public void onGet(Player target){ target.restoreHP(healthHealed); }
 
 }

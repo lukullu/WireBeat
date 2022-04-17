@@ -8,7 +8,7 @@ import static com.lukullu.undersquare.UnderSquare.*;
 import static com.lukullu.undersquare.common.collision.Collision.*;
 
 public class Enemy extends Entity {
-	
+
 	public Enemy(Vector2 _pos, Vector2 _dim){
 		super(_pos, _dim);
 		

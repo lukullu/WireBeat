@@ -14,7 +14,7 @@ import static com.lukullu.undersquare.common.Constants.*;
 import static com.lukullu.undersquare.common.collision.Collision.entityCollision;
 
 public class Player extends Entity {
-	
+
 	public Weapon weapon = Weapon.PISTOL;
 	float timeSinceLastShot = 0;
 	float dashDelay = 0;
@@ -22,7 +22,8 @@ public class Player extends Entity {
 	public Player(Vector2 _pos, Vector2 _dim) {
 		super(_pos, _dim);
 		UnderSquare.state.cam.setUp(this);
-		HP = playerHP;
+		startingHP = playerHP;
+		HP = startingHP;
 		dmg = playerContactDMG;
 	}
 

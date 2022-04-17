@@ -12,7 +12,9 @@ import static com.lukullu.undersquare.common.Constants.prjColor;
 import static com.lukullu.undersquare.common.collision.Collision.*;
 
 public class Projectile extends Entity implements ProcessingClass {
-	
+
+	public int startingHP = 1;
+
 	public Entity origin;
 	public float tl = 0;
 	public float ttl;
