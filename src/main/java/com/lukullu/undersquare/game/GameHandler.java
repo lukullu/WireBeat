@@ -27,6 +27,10 @@ public class GameHandler extends ProgramState implements ProcessingClass {
 	public ArrayList<Entity> entitiesToDie = new ArrayList<>();
 	public boolean didIDie = false;
 
+	public ArrayList<Entity> paintLayer1 = new ArrayList<>();
+	public ArrayList<Entity> paintLayer2 = new ArrayList<>();
+	public ArrayList<Entity> paintLayer3 = new ArrayList<>();
+
 	public GameHandler(LevelMap _levelMap){levelMap = _levelMap; levelMap.collisionData = IO.convertMapDataToCollisionData(levelMap.mapData);}
 
 	public void init() {
@@ -72,14 +76,14 @@ public class GameHandler extends ProgramState implements ProcessingClass {
 				if(mapGeometry[i][j] != null) mapGeometry[i][j].paint();
 			}
 		}
-		
-		for(int i = 0; i < entities.size(); i++){
-			entities.get(i).paintAfterImages();
-			entities.get(i).paint(entities.get(i).pos,255, true);
 
-			//healthbars
-			if(entities.get(i) instanceof Player){ entities.get(i).paintHealthBar(); }
-			if(entities.get(i) instanceof Enemy) { entities.get(i).paintHealthBar(); }
+
+		for (Entity entity : entities) {
+			entity.paintAfterImages();
+			entity.paint(entity.pos, 255, true);
+
+			if (entity instanceof Player) {entity.paintHealthBar();}
+			if (entity instanceof Enemy) {entity.paintHealthBar();}
 		}
 		
 		cam.paintHUD();

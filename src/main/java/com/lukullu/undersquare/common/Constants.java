@@ -79,7 +79,7 @@ public class Constants {
 	public static final Color UI_LINE_COLOR = new Color(0x4F4F4F);
 
 	public static final Color HP_BAR_HEALTH_COLOR = Color.green.darker();
-	public static final Color HP_BAR_OVERSHOOT_COLOR = Color.blue.brighter();
+	public static final Color HP_BAR_OVERSHOOT_COLOR = new Color(0,72,181);
 
 	//style
 	public static final int ROUNDEDCORNERS = 24;

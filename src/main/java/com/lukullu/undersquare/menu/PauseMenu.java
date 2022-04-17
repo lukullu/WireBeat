@@ -21,6 +21,7 @@ public class PauseMenu extends ProgramState implements ProcessingClass{
     public Widget resumeButton;
     public Widget exitButton;
     public Widget titleText;
+    public Widget retryButton;
 
     public PauseMenu(ProgramState _pausedState){
         pausedState = _pausedState;
@@ -56,6 +57,22 @@ public class PauseMenu extends ProgramState implements ProcessingClass{
                 CENTER
         );
 
+        retryButton = new ButtonWidget(
+                new Vector2(
+                        getWidth()/2 - scaleToScreenX(100),
+                        getHeight()/2 + scaleToScreenY(40)
+                ),
+                new Vector2(
+                        scaleToScreenX(200),
+                        scaleToScreenY(40)
+                ),
+                ROUNDEDCORNERS, ROUNDEDCORNERS, ROUNDEDCORNERS, ROUNDEDCORNERS,
+                "Retry Game",
+                DEFAULT_TEXT_SIZE,
+                CENTER,
+                () -> { UnderSquare.changeState(pausedState);}
+        );
+
         resumeButton = new ButtonWidget(
                 new Vector2(
                         getWidth()/2 - scaleToScreenX(100),
@@ -75,7 +92,7 @@ public class PauseMenu extends ProgramState implements ProcessingClass{
         exitButton = new ButtonWidget(
                 new Vector2(
                         getWidth()/2 - scaleToScreenX(100),
-                        getHeight()/2 + scaleToScreenY(40)
+                        getHeight()/2 + scaleToScreenY(100)
                 ),
                 new Vector2(
                         scaleToScreenX(200),
@@ -94,6 +111,7 @@ public class PauseMenu extends ProgramState implements ProcessingClass{
 
         resumeButton.update();
         exitButton.update();
+        retryButton.update();
     }
 
     @Override
@@ -103,6 +121,7 @@ public class PauseMenu extends ProgramState implements ProcessingClass{
         resumeButton.paint();
         exitButton.paint();
         titleText.paint();
+        retryButton.paint();
     }
 
 }
