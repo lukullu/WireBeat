@@ -133,12 +133,5 @@ public class Constants {
 	public static final File MAPS_BASE_DIR = new File("./data/maps/");
 
 
-	public static String[] RANDOM_DEATH_MESSAGES = {
-			"YOU DIED",
-			"Not even the carrion eaters are interested in your irradiated corpse...",
-			"You were yeeted out of existence",
-			"DEATH",
-			"You took the L"
-	};
-
+	public static final String[] RANDOM_DEATH_MESSAGES = IO.loadDeathMessages();
 }

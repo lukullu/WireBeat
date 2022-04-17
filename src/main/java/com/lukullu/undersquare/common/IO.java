@@ -12,13 +12,12 @@ import com.lukullu.undersquare.game.item.Item;
 import com.lukullu.undersquare.game.item.ItemBox;
 
 import java.awt.*;
-import java.io.File;
-import java.io.FileReader;
-import java.io.PrintWriter;
+import java.io.*;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Locale;
 import java.util.Map;
+import java.util.stream.Stream;
 
 import static com.lukullu.undersquare.common.Constants.*;
 import static com.lukullu.undersquare.game.item.Potion.*;
@@ -37,6 +36,19 @@ public class IO implements ProcessingClass {
             }
         }
         return output;
+    }
+
+    public static String[] loadDeathMessages(){
+        try {
+            InputStream data = IO.class.getClassLoader().getResourceAsStream("misc/deathMessages.txt");
+            BufferedReader reader = new BufferedReader(new InputStreamReader(data));
+            String[] out = reader.lines().toList().toArray(new String[0]);
+            reader.close();
+            return out;
+        }catch (Exception e){}
+
+        return new String[0];
+
     }
 
     public static Map<Integer, Item> loadItemIndicesMap(){

@@ -13,6 +13,7 @@ import com.lukullu.undersquare.widgets.Widget;
 import com.lukullu.undersquare.widgets.button.ButtonWidget;
 import com.lukullu.undersquare.widgets.button.LoadMapButton;
 
+import java.awt.*;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
@@ -30,6 +31,7 @@ public class MainMenu extends ProgramState implements ProcessingClass {
     public Widget loadButton;
     public Widget editorButton;
     public Widget exitButton;
+    public Widget scrollListFiller;
     public ScrollWidget fileList = new ScrollWidget(ZERO_VECTOR_2, ZERO_VECTOR_2,ROUNDEDCORNERS,ROUNDEDCORNERS,ROUNDEDCORNERS,ROUNDEDCORNERS,"Maps:");
 
     @Override
@@ -77,9 +79,21 @@ public class MainMenu extends ProgramState implements ProcessingClass {
                 ),
                 new Vector2(
                         scaleToScreenX(400),
-                        scaleToScreenY(990)),
+                        scaleToScreenY(930)),
                 ROUNDEDCORNERS,ROUNDEDCORNERS,ROUNDEDCORNERS,ROUNDEDCORNERS,
                 "Level Select:");
+
+        scrollListFiller = new Widget(
+                new Vector2(
+                        scaleToScreenX(30),
+                        scaleToScreenY(960)
+                ),
+                new Vector2(
+                        scaleToScreenX(400),
+                        scaleToScreenY(60)),
+                0,0,0,0,
+                UI_CONTRAST_COLOR
+        );
 
         tempTitleScreen = new TextWidget(
                 new Vector2(
@@ -113,8 +127,8 @@ public class MainMenu extends ProgramState implements ProcessingClass {
 
         files.forEach((mapName,file) -> { fileList.addWidget(
                 new ButtonWidget(
-                        ZERO_VECTOR_2,
-                        new Vector2(scaleToScreenX(400),scaleToScreenY(40)),
+                        new Vector2(scaleToScreenX(20),0),
+                        new Vector2(scaleToScreenX(360),scaleToScreenY(40)),
                         ROUNDEDCORNERS,ROUNDEDCORNERS,ROUNDEDCORNERS,ROUNDEDCORNERS,
                         mapName, DEFAULT_TEXT_SIZE,
                         CENTER,
@@ -142,9 +156,10 @@ public class MainMenu extends ProgramState implements ProcessingClass {
     @Override
     public void paint() {
 
+        fileList.paint();
+        scrollListFiller.paint();
         loadButton.paint();
         editorButton.paint();
-        fileList.paint();
         tempTitleScreen.paint();
         exitButton.paint();
 

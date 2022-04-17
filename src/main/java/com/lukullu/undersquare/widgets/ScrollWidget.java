@@ -2,6 +2,7 @@ package com.lukullu.undersquare.widgets;
 
 import com.kilix.processing.ProcessingClass;
 import com.lukullu.undersquare.common.data.Vector2;
+import com.lukullu.undersquare.common.msc.Utils;
 
 import java.util.ArrayList;
 
@@ -15,7 +16,10 @@ public class ScrollWidget extends Widget implements ProcessingClass {
 
 	public ArrayList<Widget> widgets = new ArrayList<>();
 	public Widget title;
+	public int totalContentHeight = 0;
 	String name = "";
+
+	public static final int WIDGET_DISTANCE = 4;
 
 	public int scrollPosition = 0;
 	
@@ -36,11 +40,20 @@ public class ScrollWidget extends Widget implements ProcessingClass {
 	}
 	
 	// add/remove widgets to/from the list
-	public void addWidget(Widget _toAdd)       { widgets.add(LINE_PARTER); widgets.add(_toAdd); }
+	public void addWidget(Widget _toAdd)       { widgets.add(LINE_PARTER); widgets.add(_toAdd); updateContentHeight();}
 	public void removeWidget(Widget _toRemove) { widgets.remove(_toRemove); }
 	public void removeWidget(int _index)       { widgets.remove(_index); }
 	public void clearWidgets() { widgets = new ArrayList<>();}
-	
+
+	public void updateContentHeight(){
+		totalContentHeight = 0;
+		for(int i = 0; i < widgets.size(); i++) {
+			Widget cur = widgets.get(i);
+
+			totalContentHeight += cur.dim.y + scaleToScreenY(WIDGET_DISTANCE);
+		}
+	}
+
 	// programmatically set scroll position
 	public void setScrollPosition(int _scrollPosition) { scrollPosition = _scrollPosition; }
 
@@ -54,17 +67,19 @@ public class ScrollWidget extends Widget implements ProcessingClass {
 			// top overflow
 			if (scrollPosition > contentHeight) { contentHeight += cur.dim.y + scaleToScreenY(LINE_DISTANCE); continue; }
 			// bottom overflow
-			if (contentHeight + scaleToScreenY(10) + cur.dim.y > dim.y + title.dim.y) break;
+			if (contentHeight + scaleToScreenY(WIDGET_DISTANCE) + cur.dim.y - scrollPosition > dim.y - cur.dim.y){println("break!" + " | "+i ); break;}//TODO this doesn't work yet!!! -------------------------------
 			
 			cur.update(new Vector2(
 							pos.x + _rel.x,
-							pos.y + _rel.y + contentHeight + scaleToScreenY(10) - scrollPosition +  title.dim.y
+							pos.y + _rel.y + contentHeight + scaleToScreenY(WIDGET_DISTANCE) - scrollPosition +  title.dim.y
 					)
 			);
 			
-			contentHeight += cur.dim.y + scaleToScreenY(10);
+			contentHeight += cur.dim.y + scaleToScreenY(WIDGET_DISTANCE);
 		}
-		
+
+
+		scrollPosition = Utils.clamp(0,(int)Math.max(totalContentHeight - dim.y,0), scrollPosition);
 	}
 	
 	@Override
@@ -74,26 +89,27 @@ public class ScrollWidget extends Widget implements ProcessingClass {
 
 		noStroke();
 		fill(UI_CONTRAST_COLOR.getRGB());
-		rect(pos.x, pos.y + title.dim.y, dim.x, dim.y - title.dim.y); //(title.dim.y/4f)*3f
+		rect(pos.x, pos.y + title.dim.y, dim.x, dim.y - title.dim.y);
 
 		int contentHeight = 0;
 		
 		for(int i = 0; i < widgets.size(); i++){
 			
 			Widget cur = widgets.get(i);
-			
+
 			if (scrollPosition > contentHeight) { contentHeight += cur.dim.y + scaleToScreenY(LINE_DISTANCE); continue; }
-			
-			if (contentHeight + scaleToScreenY(10) - scrollPosition > dim.y - title.dim.y) break;
+
+			if (contentHeight + scaleToScreenY(WIDGET_DISTANCE) - scrollPosition > dim.y - title.dim.y) break;
 			
 			cur.paint(new Vector2(
 							pos.x,
-							pos.y + contentHeight + scaleToScreenY(10) - scrollPosition +  title.dim.y
+							pos.y + contentHeight + scaleToScreenY(WIDGET_DISTANCE) - scrollPosition +  title.dim.y
 					)
 			);
-			
-			contentHeight += cur.dim.y + scaleToScreenY(10);
+
+			contentHeight += cur.dim.y + scaleToScreenY(WIDGET_DISTANCE);
 		}
+
 	}
 	
 }

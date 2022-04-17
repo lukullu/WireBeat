@@ -32,7 +32,7 @@ public class GameHandler extends ProgramState implements ProcessingClass {
 		UnderSquare.INSTANCE.noCursor();
 		cam = new Camera(new Vector2(scaleToScreenX((int)cameraPosition.x),scaleToScreenY((int)cameraPosition.y)),new Vector2(scaleToScreenX((int)cameraDimensions.x),scaleToScreenY((int)cameraDimensions.y)));
 		mapGeometry = IO.createMapElements(levelMap.mapData,IO.convertMapDataToCollisionData(levelMap.mapData), levelMap);
-		
+
 	}
 	
 	

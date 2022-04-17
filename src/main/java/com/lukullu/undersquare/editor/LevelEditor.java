@@ -13,6 +13,7 @@ import com.lukullu.undersquare.widgets.button.ButtonWidget;
 import com.lukullu.undersquare.widgets.button.LoadMapButton;
 import com.lukullu.undersquare.widgets.button.SaveMapButton;
 
+import java.awt.*;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
@@ -33,6 +34,7 @@ public class LevelEditor extends ProgramState implements ProcessingClass {
 	public ListWidget tileSettings;
 	public ListWidget legend;
 	public Widget backButton;
+	public Widget scrollListFiller;
 	public ScrollWidget fileList = new ScrollWidget(ZERO_VECTOR_2, ZERO_VECTOR_2,ROUNDEDCORNERS,ROUNDEDCORNERS,ROUNDEDCORNERS,ROUNDEDCORNERS,"Maps:");
 	
 	public LevelMap mapToBeLoaded;
@@ -117,9 +119,22 @@ public class LevelEditor extends ProgramState implements ProcessingClass {
 				),
 				new Vector2(
 						scaleToScreenX(400),
-						scaleToScreenY(870)),
+						scaleToScreenY(800)),
 				ROUNDEDCORNERS,ROUNDEDCORNERS,ROUNDEDCORNERS,ROUNDEDCORNERS,
 				"Maps:"
+		);
+
+
+		scrollListFiller = new Widget(
+				new Vector2(
+						scaleToScreenX(30),
+						scaleToScreenY(950)
+				),
+				new Vector2(
+						scaleToScreenX(400),
+						scaleToScreenY(50)),
+				0,0,0,0,
+				UI_CONTRAST_COLOR
 		);
 
 		tileSettings = new ListWidget(
@@ -193,6 +208,7 @@ public class LevelEditor extends ProgramState implements ProcessingClass {
 		loadButton.paint(ZERO_VECTOR_2);
 		tileSettings.paint();
 		legend.paint();
+		scrollListFiller.paint();
 
 	}
 
