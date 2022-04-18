@@ -9,15 +9,24 @@ import com.lukullu.undersquare.common.msc.Filter;
 import com.lukullu.undersquare.game.entity.Entity;
 import com.lukullu.undersquare.game.item.Weapon;
 
+import java.util.ArrayList;
+
 import static com.lukullu.undersquare.UnderSquare.deltaTime;
 import static com.lukullu.undersquare.common.Constants.*;
 import static com.lukullu.undersquare.common.collision.Collision.entityCollision;
 
 public class Player extends Entity {
 
-	public Weapon weapon = Weapon.PISTOL;
+	public ArrayList<Weapon> weapons = new ArrayList<>();
+
+	public int currentWeaponIndex = 0;
+
 	float timeSinceLastShot = 0;
 	float dashDelay = 0;
+
+	boolean xReset = false;
+	boolean cReset = false;
+	boolean shiftReset = false;
 	
 	public Player(Vector2 _pos, Vector2 _dim) {
 		super(_pos, _dim);
@@ -64,10 +73,15 @@ public class Player extends Entity {
 		force = new Vector2(fx == 0 ? force.x : force.x + fx, fy == 0 ? force.y : force.y + fy);
 
 		//dash
-		if(KeyHandler.shift && dashDelay >= PLAYER_DASH_DELAY){ force = new Vector2(force.x * DASH_ACCELERATION, force.y * DASH_ACCELERATION); dashDelay = 0; iFrameTimeCounter = PLAYER_DASH_IFRAME_TIME;}
+		if(KeyHandler.shift && dashDelay >= PLAYER_DASH_DELAY && shiftReset){
+			force = new Vector2(force.x * DASH_ACCELERATION, force.y * DASH_ACCELERATION);
+			dashDelay = 0;
+			iFrameTimeCounter = PLAYER_DASH_IFRAME_TIME;
+			shiftReset = false;
+		}
 
-		if(weapon != null){
-			if(timeSinceLastShot > 1/weapon.fireRate){
+		if(weapons.size() > 0){
+			if(timeSinceLastShot > 1/weapons.get(currentWeaponIndex).fireRate){
 				if(KeyHandler.up || KeyHandler.down || KeyHandler.left || KeyHandler.right) {
 					
 					Direction dir = Direction.NONE;
@@ -78,11 +92,38 @@ public class Player extends Entity {
 					if(KeyHandler.right){ dir = Direction.LEFT;}
 					if(KeyHandler.left){ dir = Direction.RIGHT;}
 					
-					fireWeapon(this,weapon,dir);
+					fireWeapon(this,weapons.get(currentWeaponIndex),dir);
 					timeSinceLastShot = 0;
 				}
 			}
 		}
+
+		//weapon selection
+		if(weapons.size() > 1) {
+			if (KeyHandler.x && xReset) {
+				currentWeaponIndex++;
+				xReset = false;
+				timeSinceLastShot = 1000;
+			}
+			if (KeyHandler.c && cReset) {
+				currentWeaponIndex--;
+				cReset = false;
+				timeSinceLastShot = 1000;
+			}
+			if (currentWeaponIndex > weapons.size() - 1) {
+				currentWeaponIndex = 0;
+			}
+			if (currentWeaponIndex < 0) {
+				currentWeaponIndex = weapons.size() - 1;
+			}
+		}
+
+		//control resets
+		if(!shiftReset && !KeyHandler.shift){ shiftReset = true;}
+		if(!xReset && !KeyHandler.x){ xReset = true;}
+		if(!cReset && !KeyHandler.c){ cReset = true;}
+
+		//delay updates
 		timeSinceLastShot += deltaTime;
 		dashDelay += deltaTime;
 	}

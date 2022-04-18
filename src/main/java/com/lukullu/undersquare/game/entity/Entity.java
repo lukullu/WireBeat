@@ -1,7 +1,6 @@
 package com.lukullu.undersquare.game.entity;
 
 import com.kilix.processing.ProcessingClass;
-import com.lukullu.undersquare.common.Constants;
 import com.lukullu.undersquare.common.data.Direction;
 import com.lukullu.undersquare.common.data.Vector2;
 import com.lukullu.undersquare.game.GameHandler;
@@ -65,10 +64,7 @@ public class Entity implements ProcessingClass {
 
 	public void updatePreviousPositions(){
 
-		Vector2[] prevPrevPos = prevPos; //xD
-		for(int i = prevPos.length-1; i > 0; i--){
-			prevPos[i] = prevPos[i-1];
-		}
+		if (prevPos.length - 1 >= 0) System.arraycopy(prevPos, 0, prevPos, 1, prevPos.length - 1);
 		prevPos[0] = pos;
 	}
 
@@ -81,11 +77,11 @@ public class Entity implements ProcessingClass {
 	}
 	
 	public void collide(){
-		
-		for(int i = 0; i < entityColliders.size(); i++){
-			takeDMG(entityColliders.get(i).dmg);
-			if (entityColliders.get(i) instanceof Projectile) takeKnockback(entityColliders.get(i).force);
-			else takeKnockback(new Vector2(  -entityColliders.get(i).force.x , -entityColliders.get(i).force.y));
+
+		for (Entity entityCollider : entityColliders) {
+			takeDMG(entityCollider.dmg);
+			if (entityCollider instanceof Projectile) takeKnockback(entityCollider.force);
+			else takeKnockback(new Vector2(-entityCollider.force.x, -entityCollider.force.y));
 		}
 		
 	}

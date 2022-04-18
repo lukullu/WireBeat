@@ -53,7 +53,7 @@ public class IO implements ProcessingClass {
 
     public static Map<Integer, Item> loadItemIndicesMap(){
         Map<Integer, Item> itemIndicesMap = new HashMap<>();
-        itemIndicesMap.put(0,PISTOL);
+        itemIndicesMap.put(0,SNIPER);
         itemIndicesMap.put(1,MACHINEGUN);
         itemIndicesMap.put(2,FLAMETHROWER);
         itemIndicesMap.put(3,QUADSHOT);

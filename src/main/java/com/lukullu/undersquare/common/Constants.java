@@ -3,10 +3,7 @@ package com.lukullu.undersquare.common;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.lukullu.undersquare.common.data.Vector2;
-import com.lukullu.undersquare.game.entity.projectile.Bullet;
-import com.lukullu.undersquare.game.entity.projectile.ProjectileConstructor;
-import com.lukullu.undersquare.game.entity.projectile.Quad;
-import com.lukullu.undersquare.game.entity.projectile.Shell;
+import com.lukullu.undersquare.game.entity.projectile.*;
 
 import java.awt.*;
 import java.io.File;
@@ -35,6 +32,7 @@ public class Constants {
 	public static final int playerHP = 100;
 	public static final int playerContactDMG = 1;
 	public static final float PLAYER_DASH_DELAY = 0.7f;
+	public static final float PLAYER_WEAPON_SWAP_DELAY = 0.1f;
 	public static final float DASH_ACCELERATION = 3;
 	public static final float PLAYER_DASH_IFRAME_TIME = 0.25f;
 
@@ -109,7 +107,7 @@ public class Constants {
 
 	public static final String[] itemTypeNames =
 			{
-					"Pistol",
+					"Sniper",
 					"Machine Gun",
 					"Flamethrower",
 					"Quadshot",
@@ -129,6 +127,7 @@ public class Constants {
 	public static final ProjectileConstructor bulletConstruction = Bullet::new;
 	public static final ProjectileConstructor shellConstruction = Shell::new;
 	public static final ProjectileConstructor quadConstruction = Quad::new;
+	public static final ProjectileConstructor HSConstruction = HighSpeed::new;
 	
 	//weapons
 	public static final float innertiaCoefficient = 0.25f;

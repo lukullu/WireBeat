@@ -11,6 +11,8 @@ public class KeyHandler implements ProcessingClass {
 	public static boolean d;
 	public static boolean e;
 	public static boolean q;
+	public static boolean x;
+	public static boolean c;
 	
 	public static boolean shift  = false;
 	public static boolean ctrl   = false;
@@ -32,6 +34,8 @@ public class KeyHandler implements ProcessingClass {
 		d = checkKeyPressed("d");
 		e = checkKeyPressed("e");
 		q = checkKeyPressed("q");
+		x = checkKeyPressed("x");
+		c = checkKeyPressed("c");
 		
 		shift  = checkKeyCodePressed(SHIFT);
 		up     = checkKeyCodePressed(UP);
@@ -51,6 +55,8 @@ public class KeyHandler implements ProcessingClass {
 		d = checkKeyReleased("d");
 		e = checkKeyReleased("e");
 		q = checkKeyReleased("q");
+		x = checkKeyReleased("x");
+		c = checkKeyReleased("c");
 		
 		shift  = checkKeyCodeReleased(SHIFT);
 		up     = checkKeyCodeReleased(UP);
@@ -72,7 +78,9 @@ public class KeyHandler implements ProcessingClass {
 			case 'd' -> d;
 			case 'e' -> e;
 			case 'q' -> q;
-			default -> old;
+			case 'x' -> x;
+			case 'c' -> c;
+			default -> false;
 		};
 		return ("" + UnderSquare.INSTANCE.key).toLowerCase().charAt(0) == keyName || old;
 	}
@@ -87,7 +95,7 @@ public class KeyHandler implements ProcessingClass {
 			case RIGHT   -> right;
 			case CONTROL -> ctrl;
 			case ESC     -> escape;
-			default -> old;
+			default -> false;
 		};
 
 		UnderSquare.INSTANCE.key = 0;
@@ -105,7 +113,9 @@ public class KeyHandler implements ProcessingClass {
 			case 'd' -> d;
 			case 'e' -> e;
 			case 'q' -> q;
-			default  -> old;
+			case 'x' -> x;
+			case 'c' -> c;
+			default  -> false;
 		};
 		return ("" + UnderSquare.INSTANCE.key).toLowerCase().charAt(0) != keyName && old;
 	}
@@ -120,7 +130,7 @@ public class KeyHandler implements ProcessingClass {
 			case RIGHT   -> right;
 			case CONTROL -> ctrl;
 			case ESC     -> escape;
-			default -> old;
+			default -> false;
 		};
 		return UnderSquare.INSTANCE.keyCode != keyName && old;
 	}
