@@ -2,6 +2,11 @@ package com.lukullu.wirebeat.common.collision;
 
 import com.kilix.processing.ProcessingClass;
 import com.lukullu.wirebeat.common.data.Vector2;
+import com.lukullu.wirebeat.common.data.Vertex;
+
+import java.util.ArrayList;
+
+import static com.lukullu.wirebeat.common.data.Vector2.unitVector2;
 
 
 public class Collision implements ProcessingClass {
@@ -14,39 +19,33 @@ public class Collision implements ProcessingClass {
 
 	}
 
-	/*
-	public static Vector2 rayCast(Vector2 pos, Vector2 dim, Vector2 dir){
-		float len = (float) sqrt(pow(dir.x,2)+pow(dir.y,2));
-		
+
+	public static ArrayList<Vertex> rayCast(Vector2 pos, Vector2 dir){
+
+		ArrayList<Vertex> result;
+
+		float len = (float) Math.sqrt(Math.pow(dir.x,2)+Math.pow(dir.y,2));
 		dir = unitVector2(dir);
 		Vector2 accumulator = new Vector2(0,0);
-		
-		boolean[][] collisionData; if (UnderSquare.getGameHandler() != null) { collisionData = UnderSquare.getGameHandler().levelMap.collisionData; } else return ZERO_VECTOR_2;
-		
-		while(sqrt(pow(accumulator.x,2) + pow(accumulator.y,2)) < len){
+
+		while(Math.sqrt(Math.pow(accumulator.x,2) + Math.pow(accumulator.y,2)) < len){
 			
 			float tempX = dir.x;
 			float tempY = dir.y;
-			
-			Vector2[] coords = getGridPositions(new Vector2(pos.x + accumulator.x + tempX, pos.y + accumulator.y + tempY),dim);
-			
-			if(collisionData[(int)coords[0].y][(int)coords[0].x])break;
-			if(collisionData[(int)coords[1].y][(int)coords[1].x])break;
-			if(collisionData[(int)coords[2].y][(int)coords[2].x])break;
-			if(collisionData[(int)coords[3].y][(int)coords[3].x])break;
-			
-			
+
+			//TODO: implement line Intersection detection
+
 			accumulator.x += tempX;
 			accumulator.y += tempY;
 			
-			if(sqrt(pow(accumulator.x,2)+pow(accumulator.y,2)) > len){ return new Vector2(dir.x * len, dir.y * len); }
+			if(Math.sqrt(Math.pow(accumulator.x,2)+Math.pow(accumulator.y,2)) > len){ return new ArrayList<>(); }
 			
 			
 		}
 		
-		return accumulator;
+		return new ArrayList<>();
 		
-	}*/
+	}
 
 
 	public static boolean boxCollision(Vector2 pos1, Vector2 dim1, Vector2 pos2, Vector2 dim2) {

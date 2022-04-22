@@ -1,6 +1,7 @@
 package com.lukullu.wirebeat;
 
 import com.kilix.processing.ExtendedPApplet;
+import com.lukullu.wirebeat.common.data.Level;
 import com.lukullu.wirebeat.states.GameState;
 import com.lukullu.wirebeat.states.gameplay.PlayControllerState;
 import com.lukullu.wirebeat.states.gameplay.PlayState;
@@ -29,7 +30,7 @@ public class WireBeat extends ExtendedPApplet{
             frameRate(60);
 
             //temporary state setting because there is no menu yet
-            state = new PlayControllerState(new PlayState());
+            state = new PlayControllerState(new PlayState(Level.HARDCODED_TEST_LEVEL));
 
         }
 
