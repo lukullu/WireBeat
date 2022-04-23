@@ -27,7 +27,7 @@ public class Level {
     public static ArrayList<Vertex> linkVertices( ArrayList<Vertex> verticesToBeLinked){
 
         for(int i = 0; i < verticesToBeLinked.size(); i++){
-
+            verticesToBeLinked.get(i).isVirtual = false;
             if(i == 0){ verticesToBeLinked.get(i).neighbors[0] = verticesToBeLinked.get(verticesToBeLinked.size()-1); }
             else{
                 verticesToBeLinked.get(i).neighbors[0] = verticesToBeLinked.get(i-1);

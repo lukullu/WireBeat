@@ -7,6 +7,7 @@ public class Vertex {
 
     public Vector2 pos;
     public Vertex[] neighbors = new Vertex[2];
+    public boolean isVirtual = true;
 
     public Vertex( Vector2 _pos, Vertex[] _neighbors) { pos = _pos; neighbors = _neighbors; }
     public Vertex( Vector2 _pos) { pos = _pos;}
