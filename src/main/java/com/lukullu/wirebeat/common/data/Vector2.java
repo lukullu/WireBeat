@@ -11,6 +11,8 @@ public class Vector2 implements Serializable {
 	
 	public String toString() { return String.format("Vec2(%.2f, %.2f)", x, y); }
 
+	public static Vector2 createFromAngleAndLength( float angle, float length) { return new Vector2((float)Math.cos(angle) * length,(float)Math.sin(angle) * length);  }
+
 	@Override
 	public boolean equals(Object o) {
 		if (this == o) return true;

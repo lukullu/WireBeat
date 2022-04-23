@@ -18,11 +18,11 @@ public class Level {
 
         vertices = linkVertices(_vertices);
         entities = _entities;
-        player = new Player( new Vector2(75 ,125));
+        player = new Player( new Vector2(125 ,75));
 
     }
 
-    public void createFromFile( File file ){  } //TODO: implement
+    public static Level createFromFile( File file ){ return null; } //TODO: implement
 
     public static ArrayList<Vertex> linkVertices( ArrayList<Vertex> verticesToBeLinked){
 
@@ -43,12 +43,28 @@ public class Level {
 
     public static final Level HARDCODED_TEST_LEVEL = new Level(
             new ArrayList<>( List.of(
-                    new Vertex( new Vector2(50 ,50)  ),
-                    new Vertex( new Vector2(50 ,100) ),
-                    new Vertex( new Vector2(50 ,150) ),
-                    new Vertex( new Vector2(100,150) ),
+                    new Vertex( new Vector2(100 ,50) ),
+                    new Vertex( new Vector2(150 ,50) ),
+                    new Vertex( new Vector2(150,100) ),
                     new Vertex( new Vector2(100,100) ),
-                    new Vertex( new Vector2(100,50)  )
+                    new Vertex( new Vector2(100,150) ),
+                    new Vertex( new Vector2(50,150)  ),
+                    new Vertex( new Vector2(50,100)  ),
+                    new Vertex( new Vector2(50 ,50)  )
+            )),
+            new ArrayList<>( List.of())
+    );
+
+    public static final Level HARDCODED_TEST_LEVEL2 = new Level(
+            new ArrayList<>( List.of(
+                    new Vertex( new Vector2(150,150)  ),
+                    new Vertex( new Vector2(200,150) ),
+                    new Vertex( new Vector2(250,150) ),
+                    new Vertex( new Vector2(250,200) ),
+                    new Vertex( new Vector2(200,200) ),
+                    new Vertex( new Vector2(200,250) ),
+                    new Vertex( new Vector2(150,250) ),
+                    new Vertex( new Vector2(150,200) )
             )),
             new ArrayList<>( List.of())
     );

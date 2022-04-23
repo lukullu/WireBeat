@@ -38,9 +38,12 @@ public class WireBeat extends ExtendedPApplet{
 
             calcDeltaTime();
 
+
             state.update();
 
+
             state.paint();
+
 
         }
 
