@@ -6,4 +6,5 @@ public class Player extends Camera {
 
     public Player(Vector2 _pos) { super(_pos); }
 
+
 }

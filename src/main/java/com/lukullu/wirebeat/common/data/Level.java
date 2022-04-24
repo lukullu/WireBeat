@@ -18,7 +18,7 @@ public class Level {
 
         vertices = linkVertices(_vertices);
         entities = _entities;
-        player = new Player( new Vector2(125 ,75));
+        player = new Player( new Vector2(12.5 ,7.5));
 
     }
 
@@ -43,14 +43,12 @@ public class Level {
 
     public static final Level HARDCODED_TEST_LEVEL = new Level(
             new ArrayList<>( List.of(
-                    new Vertex( new Vector2(100 ,50) ),
-                    new Vertex( new Vector2(150 ,50) ),
-                    new Vertex( new Vector2(150,100) ),
-                    new Vertex( new Vector2(100,100) ),
-                    new Vertex( new Vector2(100,150) ),
-                    new Vertex( new Vector2(50,150)  ),
-                    new Vertex( new Vector2(50,100)  ),
-                    new Vertex( new Vector2(50 ,50)  )
+                    new Vertex( new Vector2(15,5 ) ),
+                    new Vertex( new Vector2(15,10) ),
+                    new Vertex( new Vector2(10,10) ),
+                    new Vertex( new Vector2(10,15) ),
+                    new Vertex( new Vector2(5 ,15) ),
+                    new Vertex( new Vector2(5 ,5 ) )
             )),
             new ArrayList<>( List.of())
     );

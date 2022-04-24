@@ -31,6 +31,7 @@ public class WireBeat extends ExtendedPApplet{
 
             //temporary state setting because there is no menu yet
             state = new PlayControllerState(new PlayState(Level.HARDCODED_TEST_LEVEL));
+            state.init();
 
         }
 
