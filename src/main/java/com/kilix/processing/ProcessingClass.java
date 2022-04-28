@@ -299,4 +299,7 @@ public interface ProcessingClass extends HelperMethods {
 	default float random(Number lowerBound, Number upperBound) {
 		return appletWrapper.value.random(lowerBound.floatValue(), upperBound.floatValue());
 	}
+	default void beginShape(){ appletWrapper.value.beginShape(); }
+	default void endShape(){ appletWrapper.value.endShape(); }
+	default void vertex( float x, float y){ appletWrapper.value.vertex(x,y); }
 }

@@ -18,6 +18,7 @@ public class PlayState extends GameState implements ProcessingClass {
     @Override
     public void tick(){
         //Toolkit.getDefaultToolkit().beep();
+        level.player.tick();
     }
 
     @Override
@@ -28,9 +29,10 @@ public class PlayState extends GameState implements ProcessingClass {
     @Override
     public void paint() {
 
-        background(255);
         level.player.paint(level);
 
     }
+
+
 
 }

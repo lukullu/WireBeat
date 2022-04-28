@@ -8,17 +8,21 @@ import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
+import static com.lukullu.wirebeat.common.Constants.TILE_SIZE;
+
 public class Level {
 
     public ArrayList<Vertex> vertices;
     public ArrayList<Entity> entities;
     public Player player;
+    public final Vector2 spawnPosition;
 
-    public Level( ArrayList<Vertex> _vertices, ArrayList<Entity> _entities ) {
+    public Level( ArrayList<Vertex> _vertices, ArrayList<Entity> _entities , Vector2 _spawnPosition) {
 
         vertices = linkVertices(_vertices);
         entities = _entities;
-        player = new Player( new Vector2(12.5 ,7.5));
+        spawnPosition = _spawnPosition;
+        player = new Player( spawnPosition, Direction.LEFT);
 
     }
 
@@ -43,28 +47,16 @@ public class Level {
 
     public static final Level HARDCODED_TEST_LEVEL = new Level(
             new ArrayList<>( List.of(
-                    new Vertex( new Vector2(15,5 ) ),
-                    new Vertex( new Vector2(15,10) ),
-                    new Vertex( new Vector2(10,10) ),
-                    new Vertex( new Vector2(10,15) ),
-                    new Vertex( new Vector2(5 ,15) ),
-                    new Vertex( new Vector2(5 ,5 ) )
+                    new Vertex( new Vector2(3 * TILE_SIZE,1 * TILE_SIZE) ),
+                    new Vertex( new Vector2(3 * TILE_SIZE,2 * TILE_SIZE) ),
+                    new Vertex( new Vector2(2 * TILE_SIZE,2 * TILE_SIZE) ),
+                    new Vertex( new Vector2(2 * TILE_SIZE,3 * TILE_SIZE) ),
+                    new Vertex( new Vector2(1 * TILE_SIZE,3 * TILE_SIZE) ),
+                    new Vertex( new Vector2(1 * TILE_SIZE,1 * TILE_SIZE) )
             )),
-            new ArrayList<>( List.of())
+            new ArrayList<>( List.of()),
+            new Vector2(2.5 * TILE_SIZE, 1.5 * TILE_SIZE)
     );
 
-    public static final Level HARDCODED_TEST_LEVEL2 = new Level(
-            new ArrayList<>( List.of(
-                    new Vertex( new Vector2(150,150)  ),
-                    new Vertex( new Vector2(200,150) ),
-                    new Vertex( new Vector2(250,150) ),
-                    new Vertex( new Vector2(250,200) ),
-                    new Vertex( new Vector2(200,200) ),
-                    new Vertex( new Vector2(200,250) ),
-                    new Vertex( new Vector2(150,250) ),
-                    new Vertex( new Vector2(150,200) )
-            )),
-            new ArrayList<>( List.of())
-    );
 
 }

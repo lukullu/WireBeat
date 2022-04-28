@@ -3,41 +3,45 @@ package com.lukullu.wirebeat.entities;
 import com.kilix.processing.HelperMethods;
 import com.kilix.processing.ProcessingClass;
 import com.lukullu.wirebeat.common.collision.Collision;
-import com.lukullu.wirebeat.common.data.Level;
-import com.lukullu.wirebeat.common.data.Vector2;
-import com.lukullu.wirebeat.common.data.Vertex;
-import com.lukullu.wirebeat.common.data.VertexPair;
+import com.lukullu.wirebeat.common.data.*;
 import com.lukullu.wirebeat.common.msc.Utils;
 
 import java.util.ArrayList;
 import java.util.Arrays;
 
+import static com.lukullu.wirebeat.common.Constants.BOUNCE_SCALE;
 import static com.lukullu.wirebeat.common.Constants.FOV_RADIUS;
 
 public class Camera extends Entity implements ProcessingClass {
 
-    public float rotation = radians(80);
-    public float FOV = radians(70);
+    public float FOV = radians(55);
+    public float horizonOffset = 0;
+    public float verticalScale = 1;
 
-    public Camera( Vector2 _pos ) { super(_pos); }
+    public Camera( Vector2 _pos) { super(_pos); }
 
     @Override
     public void update(){
 
-        rotation += radians(1f);
-        if(getKeyCode() == LEFT  && getKeyPressed()){ rotation -= radians(2f);}
-        if(getKeyCode() == RIGHT && getKeyPressed()){ rotation += radians(2f);}
+        if(rotation > PI * 2){ rotation = rotation - 2 * PI;} else if(rotation < 0) { rotation = PI * 2 + rotation; }
+
+    }
+
+    @Override
+    public void tick(){
 
     }
 
     public void paint( Level level) {
 
+        ArrayList<VertexPair> visibleVertexPairs = new ArrayList<>();
+        try {
+            visibleVertexPairs = createVisibleVertexPairs(pos,rotation,FOV,level);
+        }catch (Exception e){ pos = level.spawnPosition; }
 
-        ArrayList<VertexPair> visibleVertexPairs = createVisibleVertexPairs(pos,rotation,FOV,level);
+        paintFirstPersonView(visibleVertexPairs, pos, rotation, FOV);
 
         paintMiniMap(visibleVertexPairs,level);
-
-        paintFirstPersonView(visibleVertexPairs,pos,rotation,FOV);
 
 
     }
@@ -155,7 +159,7 @@ public class Camera extends Entity implements ProcessingClass {
     }
 
     public static boolean isVertexAvailable( Vector2 origin, Vertex v, float rotation, float FOV, ArrayList<Vertex> usedVertices) {
-        return (Utils.isVectorInRange(origin,v.pos, rotation, FOV) && !usedVertices.contains(v));}
+        return v != null && (Utils.isVectorInRange(origin, v.pos, rotation, FOV) && !usedVertices.contains(v));}
     public static boolean isVertexVisible( Vector2 origin, Vertex v, Level level) {
         return(!(Utils.eliminateDoubles(Collision.allLineIntersects(origin, v.pos, level.vertices)).size() > 1));}
 
@@ -183,8 +187,13 @@ public class Camera extends Entity implements ProcessingClass {
     }
 
     public void paintFirstPersonView(ArrayList<VertexPair> visibleVertices, Vector2 origin, float direction, float FOV){
+        paintBackground();
+        translate(0,horizonOffset);
+        ArrayList<Polygon> polygons = new ArrayList<>();
         for(VertexPair vv : visibleVertices){
-            interpolateVertices(vv.v1,vv.v2,20,origin,direction);}
+            polygons.add(interpolateVertices(vv.v1,vv.v2,1,origin,direction));}
+        for (Polygon p : polygons) p.paint();
+        translate(0,-horizonOffset);
     }
 
     public ArrayList<VertexPair> getRidOfUnnecessaryVertecies(ArrayList<VertexPair> input){
@@ -216,15 +225,13 @@ public class Camera extends Entity implements ProcessingClass {
             }else{
                 output.add(input.get(i));
             }
-
-            text(Math.round(HelperMethods.degrees(Utils.deltaAngleBetweenVectors(vector1,vector2))),300,330 + 30*i);
-
         }
 
         return output;
     }
 
-    public void interpolateVertices( Vertex start, Vertex end, int steps, Vector2 origin, float direction) {
+    public Polygon interpolateVertices(Vertex start, Vertex end, int steps, Vector2 origin, float direction) {
+        Polygon polygon = new Polygon();
         float accuX = start.pos.x, accuY = start.pos.y;
         float deltaX = end.pos.x - start.pos.x, deltaY = end.pos.y - start.pos.y;
         // prepare steps for performance-micro-improvements
@@ -232,20 +239,37 @@ public class Camera extends Entity implements ProcessingClass {
         for(int i = 0; i < steps; i++){
             Vector2 v1 = new Vector2(accuX,accuY);
             Vector2 v2 = new Vector2(accuX+stepX,accuY+stepY);
-            //float distanceFromMiddleV1 = Utils.deltaAngleBetweenVectors(Vector2.createFromAngleAndLength(direction,FOV_RADIUS),new Vector2(vv.v1.pos.x - origin.x, vv.v1.pos.y - origin.y)) / FOV * getWidth();
-            float heightV1 = ((1/Utils.getDistance(origin, v1))*getHeight());// + distanceFromMiddleV1/30);
+            //sin for potential correction corrections
+            float correctionValueV1 = (float) (Math.cos(Utils.deltaAngleBetweenVectors(Vector2.createFromAngleAndLength(direction,FOV_RADIUS),new Vector2(v1.x - origin.x, v1.y - origin.y)))); //+ 0.01f * Math.sin(Utils.deltaAngleBetweenVectors(Vector2.createFromAngleAndLength(direction,FOV_RADIUS),new Vector2(v1.x - origin.x, v1.y - origin.y))));
+            float heightV1 = ((1/(Utils.getDistance(origin, v1) * correctionValueV1))*getHeight());// + distanceFromMiddleV1/30);
             float verticalPosV1 = (Utils.deltaAngleBetweenVectors(Vector2.createFromAngleAndLength(direction + FOV/2f,FOV_RADIUS),new Vector2(v1.x - origin.x, v1.y - origin.y)) / FOV) * getWidth();
-            //float distanceFromMiddleV2 = Utils.deltaAngleBetweenVectors(Vector2.createFromAngleAndLength(direction,FOV_RADIUS),new Vector2(vv.v2.pos.x - origin.x, vv.v2.pos.y - origin.y)) / FOV * getWidth();
-            float heightV2 = ((1/Utils.getDistance(origin, v2))*getHeight());// + distanceFromMiddleV2/30);
+            float deltaZV1 = 1;//TODO: deltaZ
+            float correctionValueV2 = (float) (Math.cos(Utils.deltaAngleBetweenVectors(Vector2.createFromAngleAndLength(direction,FOV_RADIUS),new Vector2(v2.x - origin.x, v2.y - origin.y)))); //+ 0.01f *Math.sin(Utils.deltaAngleBetweenVectors(Vector2.createFromAngleAndLength(direction,FOV_RADIUS),new Vector2(v2.x - origin.x, v2.y - origin.y))));
+            float heightV2 = ((1/(Utils.getDistance(origin, v2)*correctionValueV2))*getHeight());// + distanceFromMiddleV2/30);
             float verticalPosV2 = (Utils.deltaAngleBetweenVectors(Vector2.createFromAngleAndLength(direction + FOV/2f,FOV_RADIUS),new Vector2(v2.x - origin.x, v2.y - origin.y)) / FOV) * getWidth();
-            line(getWidth()-verticalPosV1,getHeight()/2f - heightV1/2f,getWidth()-verticalPosV1,getHeight()/2f + heightV1/2f);
-            line(getWidth()-verticalPosV2,getHeight()/2f - heightV2/2f,getWidth()-verticalPosV2,getHeight()/2f + heightV2/2f);
-            line(getWidth()-verticalPosV1,getHeight()/2f + heightV1/2f,getWidth()-verticalPosV2,getHeight()/2f + heightV2/2f);
-            line(getWidth()-verticalPosV1,getHeight()/2f - heightV1/2f,getWidth()-verticalPosV2,getHeight()/2f - heightV2/2f);
+            float deltaZV2 = 1;//TODO: deltaZ
+            polygon.addTopVertex(new Vertex(new Vector2(getWidth()-verticalPosV1,getHeight()/2f - (heightV1 * verticalScale * deltaZV1)/2f)));
+            polygon.addTopVertex(new Vertex(new Vector2(getWidth()-verticalPosV2,getHeight()/2f - (heightV2 * verticalScale * deltaZV2)/2f)));
+            polygon.addBottomVertex(new Vertex(new Vector2(getWidth()-verticalPosV1,getHeight()/2f + (heightV1 * verticalScale)/2f)));
+            polygon.addBottomVertex(new Vertex(new Vector2(getWidth()-verticalPosV2,getHeight()/2f + (heightV2 * verticalScale)/2f)));
+
+            //line(getWidth()-verticalPosV1,getHeight()/2f - heightV1/2f,getWidth()-verticalPosV1,getHeight()/2f + heightV1/2f);
+            //line(getWidth()-verticalPosV2,getHeight()/2f - heightV2/2f,getWidth()-verticalPosV2,getHeight()/2f + heightV2/2f);
+            //line(getWidth()-verticalPosV1,getHeight()/2f + heightV1/2f,getWidth()-verticalPosV2,getHeight()/2f + heightV2/2f);
+            //line(getWidth()-verticalPosV1,getHeight()/2f - heightV1/2f,getWidth()-verticalPosV2,getHeight()/2f - heightV2/2f);
             accuX += stepX;
             accuY += stepY;
-            ellipse(200+accuX*10,accuY*10,4,4);
         }
+        return polygon.build();
+    }
+
+    public void paintBackground(){
+        noStroke();
+        fill(70);
+        rect(0,0,getWidth(),getHeight()/2f + horizonOffset);
+        fill(120);
+        rect(0,getHeight()/2f + horizonOffset,getWidth(),getHeight());
+        stroke(1);
     }
 
 }
