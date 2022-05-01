@@ -27,13 +27,13 @@ public class Debug implements ProcessingClass {
 		fill(c.getRGB());
 		textSize(15);
 
-		text("Dynamic:", getWidth() - scaleToScreenX(400) + delta.x, scaleToScreenY(50)+ delta.y);
+		text("Dynamic:", getWidth() - scaleToScreenX(400) + (float)delta.x, scaleToScreenY(50)+ (float)delta.y);
 		for( int i = 1; i <= debugLinesTemp.size(); i++){
-			text(debugLinesTemp.get(i-1),getWidth() - scaleToScreenX(400) + delta.x,scaleToScreenY(50) + deltaY * i + delta.y);
+			text(debugLinesTemp.get(i-1),getWidth() - scaleToScreenX(400) + (float)delta.x,scaleToScreenY(50) + deltaY * i + (float)delta.y);
 		}
-		text("Const:",getWidth() - scaleToScreenX(400) + delta.x, scaleToScreenY(50) + deltaY * (debugLinesTemp.size()+1) + delta.y);
+		text("Const:",getWidth() - scaleToScreenX(400) + (float)delta.x, scaleToScreenY(50) + deltaY * (debugLinesTemp.size()+1) + (float)delta.y);
 		for( int i = 1; i <= debugLinesConst.size(); i++){
-			text(debugLinesConst.get(i-1),getWidth() - scaleToScreenX(400) + delta.x,scaleToScreenY(50) + deltaY * i + delta.y + (debugLinesTemp.size()+2) * deltaY);
+			text(debugLinesConst.get(i-1),getWidth() - scaleToScreenX(400) + (float)delta.x,scaleToScreenY(50) + deltaY * i + (float)delta.y + (debugLinesTemp.size()+2) * deltaY);
 		}
 		
 		debugLinesTemp = new ArrayList<>();

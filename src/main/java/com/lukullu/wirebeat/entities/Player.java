@@ -21,9 +21,9 @@ public class Player extends Camera {
     public Player(Vector2 _pos, Direction _facing) {
         super(_pos);
         facing = _facing;
-        if(facing.equals(Direction.DOWN   )) rotation = HALF_PI     ; else
-        if(facing.equals(Direction.LEFT )) rotation = PI          ; else
-        if(facing.equals(Direction.RIGHT)) rotation = 0           ; else
+        if(facing.equals(Direction.DOWN   )) rotation = HALF_PI ; else
+        if(facing.equals(Direction.LEFT )) rotation = PI        ; else
+        if(facing.equals(Direction.RIGHT)) rotation = 0         ; else
         if(facing.equals(Direction.UP )) rotation = PI + HALF_PI;
     }
 
@@ -37,7 +37,7 @@ public class Player extends Camera {
 
     public void adjustRotation(){
         //TODO: micro-improvements
-        if(!(targetRotation >= rotation - PI/20 && targetRotation <= rotation + PI/20)) rotation += (deltaRotation / ANIMATION_TIME) * deltaTime; else{
+        if(!(targetRotation >= rotation - PI/24 && targetRotation <= rotation + PI/24)) rotation += (deltaRotation / ANIMATION_TIME) * deltaTime; else{
             rotation = targetRotation; facing = targetDirection;
         }
     }

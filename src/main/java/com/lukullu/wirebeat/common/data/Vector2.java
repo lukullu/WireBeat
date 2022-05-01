@@ -5,20 +5,20 @@ import java.util.Objects;
 
 public class Vector2 implements Serializable {
 
-	public float x, y;
+	public double x, y;
 
-	public Vector2(Number _x, Number _y) { x = _x.floatValue(); y = _y.floatValue(); }
+	public Vector2(Number _x, Number _y) { x = _x.doubleValue(); y = _y.doubleValue(); }
 	
 	public String toString() { return String.format("Vec2(%.2f, %.2f)", x, y); }
 
-	public static Vector2 createFromAngleAndLength( float angle, float length) { return new Vector2((float)Math.cos(angle) * length,(float)Math.sin(angle) * length);  }
+	public static Vector2 createFromAngleAndLength( double angle, double length) { return new Vector2(Math.cos(angle) * length,Math.sin(angle) * length);  }
 
 	@Override
 	public boolean equals(Object o) {
 		if (this == o) return true;
 		if (o == null || getClass() != o.getClass()) return false;
 		Vector2 vector2 = (Vector2) o;
-		return Float.compare(vector2.x, x) == 0 && Float.compare(vector2.y, y) == 0;
+		return Double.compare(vector2.x, x) == 0 && Double.compare(vector2.y, y) == 0;
 	}
 
 	@Override
@@ -41,6 +41,9 @@ public class Vector2 implements Serializable {
 	public static Vector2 unitVector2(Vector2 v){
 		float len = (float) Math.sqrt(Math.pow(v.x,2) + Math.pow(v.y,2));
 		return new Vector2(v.x/len, v.y/len);}
-	
+
+	public static Vector2 resizeVector2(Vector2 v, float length){
+		float len = (float) Math.sqrt(Math.pow(v.x,2) + Math.pow(v.y,2));
+		return new Vector2((v.x/len)*length, (v.y/len)*length);}
 
 }

@@ -30,7 +30,7 @@ public class WireBeat extends ExtendedPApplet{
             frameRate(60);
 
             //temporary state setting because there is no menu yet
-            state = new PlayControllerState(new PlayState(Level.HARDCODED_TEST_LEVEL));
+            state = new PlayControllerState(new PlayState(Level.HARDCODED_TEST_LEVEL2));
             state.init();
 
         }
@@ -44,7 +44,7 @@ public class WireBeat extends ExtendedPApplet{
 
 
             state.paint();
-
+            //println(deltaTime);
 
         }
 

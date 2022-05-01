@@ -34,7 +34,7 @@ public class Utils {
 
     public static float deltaAngleBetweenVectors( Vector2 v, Vector2 u) {
         if(v.equals(u)){ return 0;}
-        float num = (v.x * u.x + v.y * u.y);
+        double num = (v.x * u.x + v.y * u.y);
         float den = (float)(Math.sqrt(Math.pow(v.x, 2) + Math.pow(v.y, 2)) * (Math.sqrt(Math.pow(u.x, 2) + Math.pow(u.y, 2))) );
         float temp = (float) Math.acos(num / den);
         if(Float.isNaN(temp)){ return 0;} else return temp;

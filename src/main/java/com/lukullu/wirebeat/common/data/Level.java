@@ -11,6 +11,8 @@ import java.util.List;
 import static com.lukullu.wirebeat.common.Constants.TILE_SIZE;
 
 public class Level {
+    //TODO: 1. make new test level
+    //TODO: 2. split screen in half or find out a way to
 
     public ArrayList<Vertex> vertices;
     public ArrayList<Entity> entities;
@@ -56,6 +58,21 @@ public class Level {
             )),
             new ArrayList<>( List.of()),
             new Vector2(2.5 * TILE_SIZE, 1.5 * TILE_SIZE)
+    );
+
+    public static final Level HARDCODED_TEST_LEVEL2 = new Level(
+            new ArrayList<>( List.of(
+                    new Vertex( new Vector2(1 * TILE_SIZE,1 * TILE_SIZE) ),
+                    new Vertex( new Vector2(4 * TILE_SIZE,1 * TILE_SIZE) ),
+                    new Vertex( new Vector2(4 * TILE_SIZE,2 * TILE_SIZE) ),
+                    new Vertex( new Vector2(3 * TILE_SIZE,2 * TILE_SIZE) ),
+                    new Vertex( new Vector2(3 * TILE_SIZE,3 * TILE_SIZE) ),
+                    new Vertex( new Vector2(4 * TILE_SIZE,3 * TILE_SIZE) ),
+                    new Vertex( new Vector2(4 * TILE_SIZE,4 * TILE_SIZE) ),
+                    new Vertex( new Vector2(1 * TILE_SIZE,4 * TILE_SIZE) )
+            )),
+            new ArrayList<>( List.of()),
+            new Vector2(1.5 * TILE_SIZE, 2.5 * TILE_SIZE)
     );
 
 

@@ -1,6 +1,11 @@
 package com.lukullu.wirebeat.common.data;
 
+import com.lukullu.wirebeat.common.collision.Collision;
+import com.lukullu.wirebeat.common.msc.Utils;
+
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
 import java.util.Objects;
 
 import static com.lukullu.wirebeat.common.Constants.TILE_SIZE;
@@ -31,5 +36,15 @@ public class Vertex {
         int result = Objects.hash(pos);
         result = 31 * result + Arrays.hashCode(neighbors);
         return result;
+    }
+
+    public static boolean isVertexAvailable( Vector2 origin, Vertex v, float rotation, float FOV) {
+        return (Utils.isVectorInRange(origin, v.pos, rotation, FOV)); }
+    public static boolean isVertexVisible( Vector2 origin, Vertex v, Level level) {
+        return(!(Utils.eliminateDoubles(Collision.allLineIntersects(origin, v.pos, level.vertices)).size() > 1));}
+
+    public static float getDistanceToNearestNeighbor(Vertex v){
+        Vertex closestVertex = Collision.sortVerticesByDistance(new ArrayList<Vertex>(List.of(v.neighbors)),v.pos).get(0);
+        return Utils.getDistance(closestVertex,v);
     }
 }

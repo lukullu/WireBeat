@@ -15,7 +15,7 @@ dependencies {
     implementation 'org.processing:core:3.3.7'
 }
 
-ext { javaMainClass = "com.lukullu.undersquare.Main" }
+ext { javaMainClass = "com.lukullu.wirebeat.Main" }
 
 application {
     mainClassName = javaMainClass
